@@ -1,0 +1,2 @@
+git config --global core.autocrlf input   # Linux/macOS
+git config --global core.autocrlf true    # Windows

@@ -1,0 +1,15 @@
+# По умолчанию — текст с LF
+* text eol=lf
+
+# Бинарные файлы
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+
+# Архивы
+*.zip binary
+*.tar binary
+*.gz binary
+*.7z binary
