@@ -1,0 +1,64 @@
+@import "../../_variables.scss";
+
+.mobile-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 40px;
+    width: 100%;
+    a {
+        @extend %font-links;
+        color: $text-color;
+        padding: 12px 15px;
+        font-size: 1.6rem;
+
+    }
+    a:hover, a:focus {
+        color: $accent-color
+    }
+    button {
+        @extend %font-links;
+        font-size: 1.6rem;
+        padding: 12px 15px;
+        border: none;
+        background-color: white;
+        cursor: pointer;
+    }
+}
+.hide-menu {    
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        display: block;
+        z-index: 2;
+        background-color: white; // Нужен, чтобы скрыть элементы на заднем фоне
+        a {
+            @extend %font-links;
+            display: block;
+            padding: 20px 40px;
+            font-size: 1.6rem;
+            color: $text-color;
+            margin: 0 auto;
+            text-align: center;
+        }
+        a:hover, a:focus {
+            background-color: rgb(172, 172, 172);
+            color: $accent-color;
+        }
+        .close-button{
+            @extend %font-links;
+            font-size: 1.6rem;
+            padding: 20px 40px;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            // Прописать посишн фиксед, к низу экрана, чтобы было под пальцем, и добавить при нажатии в любое другое место тоже закрывать меню
+        }
+        .close-button:hover, .close-button:focus{
+            background-color: rgb(172, 172, 172);
+            color: $accent-color;
+        }
+    }

@@ -1,0 +1,9 @@
+$text-color: black;
+$accent-color: green;
+
+// Шаблон стилей для ссылок
+%font-links{
+    text-decoration: none;
+    font-family: Georgia;
+    transition: .2s;
+}

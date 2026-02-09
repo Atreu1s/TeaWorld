@@ -1,0 +1,18 @@
+@import "../../_variables.scss";
+
+.desctop-navigation{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 30px;
+  height: 60px;
+  a {
+    @extend %font-links;
+    font-size: 1.6rem;
+    padding: 12px 15px;
+    color: $text-color;
+  }
+  a:hover, a:focus {
+    color: $accent-color;
+  }
+}
