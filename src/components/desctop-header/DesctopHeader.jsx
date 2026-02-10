@@ -6,9 +6,12 @@ const DesctopHeader = () => {
     <nav className="desctop-navigation">
       <Link to="/Home">Logo</Link>
       <div>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/menu">Menu</Link>
+        <Link to="/" >Главная</Link> 
+        <Link to="/" >Профиль</Link>
+        <Link to="/teaworld" >Чай</Link> 
+        <Link to="/register" >Зарегистрироваться</Link> 
+        <Link to="/auth" >Войти</Link> 
+        <Link to="/about" >О нас</Link>
       </div>
       
     </nav>

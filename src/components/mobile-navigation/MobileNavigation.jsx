@@ -15,8 +15,8 @@ const MobileNavigation = () => {
     <>
     <nav className="mobile-navigation">
       {/* Основные ссылки всегда видны */}
-      <Link to="/about">About</Link>
-      <Link to="/">Home</Link>
+      <Link to="/about">Профиль</Link>
+      <Link to="/">Главная</Link>
       
       <button onClick={toggleMenu} className="menu-toggle">
         {isMenuOpen ? "Закрыть" : "Меню"} 
@@ -24,9 +24,13 @@ const MobileNavigation = () => {
     </nav>
     {isMenuOpen && (
         <div className='hide-menu'>
-          <Link to="/About" onClick={toggleMenu}>Страница</Link> 
-          <Link to="/About" onClick={toggleMenu}>Страница</Link>
-          <Link to="/About" onClick={toggleMenu}>Страница</Link> 
+          <Link to="/" onClick={toggleMenu}>Главная</Link> 
+          <Link to="/" onClick={toggleMenu}>Профиль</Link>
+          <Link to="/teaworld" onClick={toggleMenu}>Чай</Link> 
+          <Link to="/register" onClick={toggleMenu}>Зарегистрироваться</Link> 
+          <Link to="/auth" onClick={toggleMenu}>Войти</Link> 
+          <Link to="/about" onClick={toggleMenu}>О нас</Link> 
+
 
           <button onClick={toggleMenu} className="close-button">Закрыть</button>
         </div>

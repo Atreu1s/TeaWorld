@@ -25,6 +25,9 @@
         background-color: white;
         cursor: pointer;
     }
+    button:hover, button:focus {
+        color: $accent-color;
+    }
 }
 .hide-menu {    
         position: fixed;
@@ -47,6 +50,9 @@
             color: $accent-color;
         }
         .close-button{
+            position: fixed;
+            bottom: 20px;
+            z-index: 3;
             @extend %font-links;
             font-size: 1.6rem;
             padding: 20px 40px;
