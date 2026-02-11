@@ -4,10 +4,11 @@ import './App.scss';
 import { useHeaderSwitch } from './hooks/useHeaderSwitch';
 
 import Home from './pages/home/Home';
-import About from './pages/about/About';
 import Register from './pages/register/register';
 import Auth from './pages/login/login';
 import TeaWorld from './pages/tea/tea';
+import Profile from './pages/profile/Profile';
+import Blog from './pages/blog/blog';
 
 import MobileHeader from './components/mobile-header/MobileHeader';
 import MobileNavigation from './components/mobile-navigation/MobileNavigation';
@@ -34,10 +35,11 @@ function App() {
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
             <Route path="/teaworld" element={<TeaWorld />} />
             <Route path="/register" element={<Register />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/blog" element={<Blog />} />
           </Routes>
         </main>
       </div>

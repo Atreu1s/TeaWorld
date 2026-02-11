@@ -1,0 +1,14 @@
+@use "../../variables" as *;
+
+h2{
+  font-size: $h2-font-size;
+}
+.sitat-blok{
+  font-size: $p-font-size;
+  .quote-author{
+    text-align: end;
+  }
+  p {
+    margin: 0;
+  }
+}

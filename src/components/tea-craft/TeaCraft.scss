@@ -1,0 +1,31 @@
+@use '../../variables' as *;
+
+.tea-craft-guide {
+  margin: 50px 0;
+  font-size: 1rem;
+  .step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid $accent-color;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    margin: 10px auto;
+  }
+  h2 {
+    text-align: center;
+  }
+}
+
+.icon-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  .step-text {
+    margin: 0 20px;
+  }
+}

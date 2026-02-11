@@ -4,5 +4,10 @@
 }   Добвать шрифт */
 
 body {
-    font-size: 62.5%;
+  background-color: rgb(255, 255, 255);
+  font-size: 62.5%;
+}  
+.body-area {
+    width: 90%;
+    margin: 0 auto 150px auto;
 }

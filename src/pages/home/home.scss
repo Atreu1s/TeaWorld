@@ -1,0 +1,21 @@
+@use "../../variables" as *;
+
+.main-text{
+  h1{
+    text-align: start;
+    margin-bottom: 0;
+    font-size: $h1-font-size;
+  }
+  h2 {
+    font-size: $h2-font-size;
+    margin-top: 10px;
+  }
+  p {
+    font-size: $p-font-size;
+  }
+  a{
+    transition: .2s;
+    color: $text-color;
+    font-size: 1.2rem;
+  }
+}

@@ -7,11 +7,11 @@ const DesctopHeader = () => {
       <Link to="/Home">Logo</Link>
       <div>
         <Link to="/" >Главная</Link> 
-        <Link to="/" >Профиль</Link>
+        <Link to="/profile" >Профиль</Link>
         <Link to="/teaworld" >Чай</Link> 
         <Link to="/register" >Зарегистрироваться</Link> 
         <Link to="/auth" >Войти</Link> 
-        <Link to="/about" >О нас</Link>
+        <Link to="/blog" >Блог</Link> 
       </div>
       
     </nav>

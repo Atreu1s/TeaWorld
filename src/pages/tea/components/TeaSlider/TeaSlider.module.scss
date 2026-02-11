@@ -1,0 +1,32 @@
+@use "../../../../variables" as *;
+
+.teaSlider{
+  position: relative;
+  height: 300px;
+  background-color: $accent-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  .slideContent{
+    height: 100%;
+  }
+  .carouselBtnPrev{
+    border: none;
+    background-color: rgba(0, 0, 139, 0);
+    position: absolute;
+    left: 10px;
+    top: 45%;
+    font-size: 2rem;
+    color: white;
+  }
+  .carouselBtnNext{
+    border: none;
+    background-color: rgba(0, 0, 139, 0);
+    position: absolute;
+    right: 10px;
+    top: 45%;
+    font-size: 2rem;
+    color: white;
+  }
+}

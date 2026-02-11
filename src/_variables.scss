@@ -1,5 +1,9 @@
 $text-color: black;
 $accent-color: green;
+$h1-font-size: 2rem;
+$h2-font-size: 1.4rem;
+$p-font-size: 1.2rem;
+
 
 // Шаблон стилей для ссылок
 %font-links{
@@ -30,7 +34,5 @@ $accent-color: green;
     max-width: 400px;
   }
 
-.body-area {
-    width: 90%;
-    margin: 0 auto;
-}
+
+

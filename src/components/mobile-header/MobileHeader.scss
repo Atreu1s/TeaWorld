@@ -1,11 +1,16 @@
+@use "../../variables" as *;
+
 .mobile-header {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 60px;
     width: 100vw;
-    margin: 20px auto;
-    h1 {
+    padding: 20px 0;
+    margin: 0px auto;
+    border-bottom: 3px solid $accent-color;
+    span {
+        color: $accent-color;
         text-align: center;
         font-size: 2.4rem;
         z-index: 99;
