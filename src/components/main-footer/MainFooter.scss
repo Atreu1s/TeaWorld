@@ -6,6 +6,11 @@
   padding: 10px;
   border-top: 3px solid $accent-color;
   margin-top: auto;
+  padding-bottom: 80px; 
+  
+  @media (min-width: 501px) {
+    padding-bottom: 10px;
+  }
   div {
     width: 90%;
     margin: 0 auto;

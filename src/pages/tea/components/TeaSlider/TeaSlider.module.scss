@@ -8,8 +8,23 @@
   justify-content: center;
   align-items: center;
   color: white;
-  .slideContent{
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
+    background: rgba(0, 0, 0, 0.5); // 50% затемнение
+    z-index: 1;
+  }
+  .slideContent{
+    position: relative;
+    height: 100%;
+    z-index: 2;
   }
   .carouselBtnPrev{
     border: none;
@@ -19,6 +34,7 @@
     top: 45%;
     font-size: 2rem;
     color: white;
+    z-index: 2;
   }
   .carouselBtnNext{
     border: none;
@@ -28,5 +44,55 @@
     top: 45%;
     font-size: 2rem;
     color: white;
+    z-index: 2;
   }
+  
+
+.carouselIndicators {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+  
+  .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: white;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s;
+    }
+    
+    &:hover::before {
+      width: 8px;
+      height: 8px;
+    }
+    
+    &.active {
+      background: white;
+      
+      &::before {
+        width: 6px;
+        height: 6px;
+      }
+    }
+  }
+}
+
 }

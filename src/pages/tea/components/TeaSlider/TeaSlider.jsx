@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import slides from './TeaSlides.js';
 import styles from './TeaSlider.module.scss';
 
@@ -21,17 +22,28 @@ const TeaSlider = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  // Настройки свайпа
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: nextSlide,
+    onSwipedRight: prevSlide,
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true, // также работает для мыши (drag)
+    delta: 50, // минимальное расстояние свайпа в пикселях
+  });
+
   return (
-    <div className={styles.teaSlider} style={{ backgroundImage: `url(${slides[currentSlide].image})` }}>
+    <div 
+      className={styles.teaSlider} 
+      style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
+      {...swipeHandlers} // Применяем обработчики свайпа
+    >
       <div className="carousel-slide">
-        
         <div className={styles.slideContent}>
           <h2 className="slide-title">{slides[currentSlide].title}</h2>
           <p className="slide-description">{slides[currentSlide].description}</p>
         </div>
       </div>
 
-      {/* Кнопки навигации */}
       <button className={styles.carouselBtnPrev} onClick={prevSlide} aria-label="Предыдущий слайд">
         ←
       </button>
@@ -40,11 +52,11 @@ const TeaSlider = () => {
       </button>
 
       {/* Индикаторы слайдов */}
-      <div className="carousel-indicators">
+      <div className={styles.carouselIndicators}>
         {slides.map((_, index) => (
           <span
             key={index}
-            className={`indicator ${index === currentSlide ? 'active' : ''}`}
+            className={`${styles.indicator} ${index === currentSlide ? styles.active : ''}`}
             onClick={() => setCurrentSlide(index)}
             aria-label={`Слайд ${index + 1}`}
           ></span>
