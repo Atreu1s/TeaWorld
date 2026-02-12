@@ -13,7 +13,7 @@ import Blog from './pages/blog/blog';
 import MobileHeader from './components/mobile-header/MobileHeader';
 import MobileNavigation from './components/mobile-navigation/MobileNavigation';
 import DesctopHeader from './components/desctop-header/DesctopHeader';
-
+import MainFooter from './components/main-footer/MainFooter';
 
 function App() {
   const isMobile = useHeaderSwitch('(max-width: 500px)');
@@ -28,10 +28,12 @@ function App() {
               <MobileNavigation />
             </>
           ) : (
+            <>
             <DesctopHeader />
+            
+            </>
           )}
         </div>
-        
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -42,6 +44,7 @@ function App() {
             <Route path="/blog" element={<Blog />} />
           </Routes>
         </main>
+        <MainFooter />
       </div>
     </Router>
   );

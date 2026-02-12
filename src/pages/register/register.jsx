@@ -48,11 +48,12 @@ const Register = () => {
 
   return (
     <section className='body-area'>
-      <h1>Регистрация</h1>
+      
       
       {error && <div style={{ color: 'red' }}>{error}</div>}
 
       <form className='reg-form' onSubmit={handleSubmit}>
+        <h1>Регистрация</h1>
         <div>
           <label>Имя пользователя</label>
           <input
@@ -100,11 +101,12 @@ const Register = () => {
         <button type="submit" disabled={loading}>
           {loading ? 'Регистрация...' : 'Зарегистрироваться'}
         </button>
+        <p className='log-reg-link'>
+          Уже есть аккаунт? <a href="/auth">Войти</a>
+        </p>
       </form>
 
-      <p className='log-reg-link'>
-        Уже есть аккаунт? <a href="/auth">Войти</a>
-      </p>
+      
     </section>
   );
 }

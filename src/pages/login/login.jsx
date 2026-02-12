@@ -40,13 +40,12 @@ export default function Login() {
 
   return (
     <div>
-      <h1>Вход в систему</h1>
       
-      {/* Показываем ошибку, если есть */}
+      
       {error && <div>{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        {/* Поле Email */}
+        <h1>Вход в систему</h1>
         <div>
           <label>Email</label>
           <input
@@ -59,7 +58,6 @@ export default function Login() {
           />
         </div>
 
-        {/* Поле Пароль */}
         <div>
           <label>Пароль</label>
           <input
@@ -72,19 +70,17 @@ export default function Login() {
           />
         </div>
 
-        {/* Кнопка входа */}
         <button
           type="submit"
           disabled={loading}
         >
           {loading ? 'Вход...' : 'Войти'}
         </button>
+        <p className='log-reg-link'>
+          Нет аккаунта? <a href="/register">Зарегистрироваться</a>
+        </p>
       </form>
-
-      {/* Ссылка на регистрацию */}
-      <p className='log-reg-link'>
-        Нет аккаунта? <a href="/register">Зарегистрироваться</a>
-      </p>
+      
     </div>
   );
 }

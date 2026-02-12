@@ -5,6 +5,9 @@ h2{
 }
 .sitat-blok{
   font-size: $p-font-size;
+  background-color: $accent-color;
+  color: $on-accent-text;
+  padding: 20px;
   .quote-author{
     text-align: end;
   }

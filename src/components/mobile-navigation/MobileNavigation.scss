@@ -10,7 +10,7 @@
     padding: 10px 0;
     margin: 0 auto;
     max-width: 500px;
-    background-color: white;
+    background-color: $accent-color2;
     border-top: 3px solid $accent-color;
     a {
         @extend %font-links;
@@ -27,8 +27,9 @@
         font-size: 1.6rem;
         padding: 12px 15px;
         border: none;
-        background-color: white;
+        background-color: $accent-color2;
         cursor: pointer;
+        color: $accent-color;
     }
     button:hover, button:focus {
         color: $accent-color;
@@ -41,8 +42,8 @@
         width: 100vw;
         height: 100%;
         display: block;
-        z-index: 2;
-        background-color: white; // Нужен, чтобы скрыть элементы на заднем фоне
+        background-color: white;
+        z-index: 99;
         a {
             @extend %font-links;
             display: block;
@@ -68,7 +69,6 @@
             cursor: pointer;
             width: 100%;
             text-align: center;
-            // Прописать посишн фиксед, к низу экрана, чтобы было под пальцем, и добавить при нажатии в любое другое место тоже закрывать меню
         }
         .close-button:hover, .close-button:focus{
             background-color: rgb(172, 172, 172);

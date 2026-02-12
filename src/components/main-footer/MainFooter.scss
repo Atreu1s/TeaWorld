@@ -1,0 +1,28 @@
+@use "../../variables" as *;
+
+.main-footer{
+  background-color: $accent-color2;
+  color: $on-accent-text;
+  padding: 10px;
+  border-top: 3px solid $accent-color;
+  margin-top: auto;
+  div {
+    width: 90%;
+    margin: 0 auto;
+  }
+  h3{
+    color: $accent-color;
+    font-size: $dectop-font-size;
+    margin: 0 0 10px 0;
+  }
+  ul{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
+    li{
+      text-decoration: none;
+      color: $on-accent-text;
+      font-size: $p-font-size;
+      list-style-type: none;
+    }
+  }
+}

@@ -4,21 +4,44 @@ h1 {
   font-size: 2rem;
   text-align: center;
 }
+
 form {
-  label{
+  box-sizing: border-box; 
+  
+  width: 90%;
+  max-width: 600px;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: $accent-color;
+  color: white;
+  margin: 100px auto; 
+  
+  label {
     @extend %form-label;
   }
+  
   input {
     @extend %form-input;
+    width: 100%; 
+    box-sizing: border-box; 
   }
+  
   button {
     @extend %form-button;
+    width: 100%; 
+    box-sizing: border-box;
   }
-}
-.log-reg-link {
-  width: 90%;
-  margin: 10px auto;
-  font-size: 1rem;
-  max-width: 400px;
-  text-align: center;
+  
+  .log-reg-link {
+    width: 100%; 
+    margin: 10px auto;
+    font-size: $p-font-size;
+    text-align: center;
+    
+    a {
+      text-decoration: underline;
+      color: $on-accent-text;
+    }
+  }
 }

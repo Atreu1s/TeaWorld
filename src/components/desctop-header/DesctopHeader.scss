@@ -1,16 +1,25 @@
 @use "../../variables" as *;
 
 .desctop-navigation{
-  display: flex;
-  width: 90%;
-  margin: 20px auto;
-  justify-content: space-between;
-  align-items: center;
+  width: 100vw;
   height: 60px;
+  box-sizing: border-box;
+  background-color: $accent-color2;
+  color: $on-accent-text;
+  .nav-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    margin: 0px auto;
+    max-width: 90%;
+
+  }
   a {
         @extend %font-links;
-        font-size: 1.6rem;
-        color: $text-color;
+        font-size: $dectop-font-size;
+        color: $on-accent-text;
+        font-family: "Almendra";
       }
       a:hover, a:focus {
         color: $accent-color;
@@ -18,13 +27,73 @@
   div {
     a {
         @extend %font-links;
-        font-size: 1.6rem;
+        font-size: $dectop-font-size;
         padding: 12px 15px;
-        color: $text-color;
+        color: $on-accent-text;
       }
       a:hover, a:focus {
         color: $accent-color;
       }
   }
   
+}
+.menu-area{
+  width: 100%;
+  background-color: $accent-color2;
+  color: $on-accent-text;
+  height: 60px;
+  div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+.medium-logo{
+  text-decoration: none;
+  font-family: 'Almendra';
+  color: $accent-color;
+  font-size: $dectop-font-size;
+}
+.desctop-menu-btn{
+  border: none;
+  background-color: transparent;
+  font-size: $dectop-font-size;
+  color: $on-accent-text;
+  cursor: pointer;
+}
+.desktop-modal-menu{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  .modal-links{
+    margin-top: 100px
+  }
+  a {
+    @extend %font-links;
+    display: block;
+    padding: 20px 40px;
+    font-size: 1.6rem;
+    color: $text-color;
+    margin: 0 auto;
+    text-align: center;
+}
+a:hover, a:focus {
+    background-color: rgb(172, 172, 172);
+    color: $accent-color;
+}
+  .modal-close{
+    border: none;
+    background-color: white;
+    font-size: 2rem;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    cursor: pointer;
+  }
 }

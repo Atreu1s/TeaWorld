@@ -1,13 +1,29 @@
-/*@font-face {
-    font-family: ;
-    src: url();
-}   Добвать шрифт */
+@font-face {
+    font-family: 'Almendra';
+    src: url(../public/fonts/AlmendraSC-Regular.ttf);
+}  
+
+@font-face {
+    font-family: 'AlumniSans';
+    src: url(../public/fonts/Alumni_Sans/static/AlumniSans-Regular.ttf);
+}  
 
 body {
   background-color: rgb(255, 255, 255);
   font-size: 62.5%;
+  font-family: 'AlumniSans';
 }  
 .body-area {
     width: 90%;
     margin: 0 auto 150px auto;
+}
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+}
+
+.main-content {
+  flex: 1; 
+  padding: 20px 0;
 }

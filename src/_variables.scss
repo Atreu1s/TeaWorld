@@ -1,36 +1,45 @@
-$text-color: black;
-$accent-color: green;
+$text-color: #1B211F;
+$accent-color: #839958;
+$accent-color2: #1B211F;
+$on-accent-text: white;
 $h1-font-size: 2rem;
 $h2-font-size: 1.4rem;
 $p-font-size: 1.2rem;
+$dectop-font-size: 1.6rem;
+$optimal-transition: .2s;
 
 
 // Шаблон стилей для ссылок
 %font-links{
     text-decoration: none;
-    font-family: Georgia;
+    font-family: "AlumniSans";
     transition: .2s;
 }
 // Шаблон стилей для формы 
 %form-label {
     display: block;
     width: 100%;
-    font-size: 1.4rem;
+    font-size: $p-font-size;
     padding: 10px 10px 0 10px;
   }
 %form-input {
     display: block;
-    width: 300px;
+    width: 100%;
     height: 20px;
     margin: 0 10px 10px 10px;
-    font-size: 1.4rem;
+    font-size: $p-font-size;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px dotted white;
+    outline: none;  
   }
 %form-button {
-    font-size: 1.4rem;
-    background-color: white;
+    font-size: $p-font-size;
+    background-color: transparent;
     border: none;
+    color: $on-accent-text;
     margin: 10px auto;
-    width: 90%;
+    width: 100%;
     max-width: 400px;
   }
 

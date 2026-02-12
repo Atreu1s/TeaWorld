@@ -9,6 +9,8 @@
     justify-content: center;
     text-align: center;
     border: 1px solid $accent-color;
+    background-color: $accent-color2;
+    color: $on-accent-text;
     border-radius: 50%;
     height: 30px;
     width: 30px;
@@ -17,6 +19,10 @@
   h2 {
     text-align: center;
   }
+}
+.steps-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .icon-container {
@@ -27,5 +33,9 @@
   margin: 0 auto;
   .step-text {
     margin: 0 20px;
+  }
+  img{
+    max-width: 50px;
+    max-height: 50px;
   }
 }

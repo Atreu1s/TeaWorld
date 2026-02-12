@@ -18,4 +18,11 @@
     color: $text-color;
     font-size: 1.2rem;
   }
+  .active_link{
+    color: $accent-color;
+    transition: $optimal-transition;
+  }
+  .active_link:hover, .active_link:focus{
+    color: $accent-color2;
+  }
 }

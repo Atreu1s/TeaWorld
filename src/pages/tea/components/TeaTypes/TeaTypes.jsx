@@ -30,10 +30,6 @@ const TeaTypes = () => {
   return (
     <div className="tea-types-block">
       <h2>Основные виды чая</h2>
-      <p className="intro-text">
-        Все виды настоящего чая производятся из одного растения — <em>Camellia sinensis</em>. 
-        Разница возникает из-за степени ферментации и технологии обработки.
-      </p>
 
       {/* Сетка кнопок видов чая */}
       <div className={styles.teaTypesGrid}>

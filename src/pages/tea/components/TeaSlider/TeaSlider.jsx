@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
 import slides from './TeaSlides.js';
 import styles from './TeaSlider.module.scss';
-//import './TeaSlider.scss';
 
 const TeaSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Автопрокрутка каждые 5 секунд
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(timer);
   }, []);
@@ -24,12 +22,8 @@ const TeaSlider = () => {
   };
 
   return (
-    <div className={styles.teaSlider}>
+    <div className={styles.teaSlider} style={{ backgroundImage: `url(${slides[currentSlide].image})` }}>
       <div className="carousel-slide">
-        <div 
-          className="slide-image" 
-          style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
-        ></div>
         
         <div className={styles.slideContent}>
           <h2 className="slide-title">{slides[currentSlide].title}</h2>
