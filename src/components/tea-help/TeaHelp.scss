@@ -10,6 +10,7 @@
   color: $on-accent-text;
   box-shadow: 0 0 10px $accent-color2;
   border-radius: $elem-border-radius;
+  border: 1px solid $accent-color2;
 }
 .HelpTeaHeader{
   text-align: center;
@@ -25,6 +26,7 @@
   text-align: center;
   width: 80%;
   margin: 0 auto;
+  padding-bottom: 50px;
 }
 
 .carouselIndicators {

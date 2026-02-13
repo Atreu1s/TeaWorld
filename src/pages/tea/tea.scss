@@ -2,7 +2,7 @@
 
 .TeaMainBody{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   padding: 20px 0;
 }
 .teaText{
@@ -10,4 +10,14 @@
 }
 .map-area{
   width: 100%;
+}
+.accentP {
+  background-color: $accent-color;
+  box-shadow: $main-shadow;
+  padding: 10px;
+  border-radius: $elem-border-radius;
+  color: $on-accent-text;
+}
+.MiddleTextOnPage{
+  font-size: $p-font-size;
 }
