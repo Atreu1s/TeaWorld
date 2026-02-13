@@ -1,0 +1,13 @@
+@use "../../../../variables" as *;
+
+.tea-map{
+  max-width: 100%;
+  margin: 20px auto;
+  object {
+    width: 100%;
+  }
+}
+.tea-country{
+  background-color: $accent-color;
+  fill: $accent-color;
+}

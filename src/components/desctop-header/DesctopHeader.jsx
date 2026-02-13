@@ -87,9 +87,10 @@ const DesktopNavigation = () => {
                 <Link to="/" onClick={toggleMenu}>Главная</Link> 
                 <Link to="/profile" onClick={toggleMenu}>Профиль</Link>
                 <Link to="/teaworld" onClick={toggleMenu}>Чай</Link> 
+                <Link to="/blog" onClick={toggleMenu}>Блог</Link> 
                 <Link to="/register" onClick={toggleMenu}>Зарегистрироваться</Link> 
                 <Link to="/auth" onClick={toggleMenu}>Войти</Link> 
-                <Link to="/blog" onClick={toggleMenu}>Блог</Link> 
+                
               </div>
             </div>
           </div>
@@ -107,9 +108,10 @@ const DesktopNavigation = () => {
           <Link to="/" >Главная</Link> 
           <Link to="/profile" >Профиль</Link>
           <Link to="/teaworld" >Чай</Link> 
+          <Link to="/blog" >Блог</Link> 
           <Link to="/register" >Зарегистрироваться</Link> 
           <Link to="/auth" >Войти</Link> 
-          <Link to="/blog" >Блог</Link> 
+          
         </div>
       </div>
       

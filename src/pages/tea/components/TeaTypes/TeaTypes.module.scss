@@ -15,8 +15,8 @@
   background-color: white;
 }
 .teaTtypeBtn{
-  border: 3px solid $accent-color;
-  background-color: $accent-color2;
+  background-color: $accent-color;
+  box-shadow: 0 0 10px $accent-color2;
   transition: .2s;
   cursor: pointer;
   min-height: 100px;

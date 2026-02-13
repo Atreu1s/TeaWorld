@@ -1,0 +1,75 @@
+@use "../../variables" as *;
+
+
+.TeaHelpArea{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $accent-color;
+  color: $on-accent-text;
+  box-shadow: 0 0 10px $accent-color2;
+  border-radius: $elem-border-radius;
+}
+.HelpTeaHeader{
+  text-align: center;
+}
+.HelpSlidesTitle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.HelpSlideDescription{
+  font-size: $p-font-size;
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.carouselIndicators {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+  
+  .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: white;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s;
+    }
+    
+    &:hover::before {
+      width: 8px;
+      height: 8px;
+    }
+    
+    &.active {
+      background: white;
+      
+      &::before {
+        width: 6px;
+        height: 6px;
+      }
+    }
+  }
+}

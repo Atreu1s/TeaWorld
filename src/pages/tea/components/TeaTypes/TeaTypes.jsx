@@ -7,22 +7,18 @@ const TeaTypes = () => {
 
   const openModal = (tea) => {
     setSelectedTea(tea);
-    // Блокируем прокрутку страницы
     document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setSelectedTea(null);
-    // Восстанавливаем прокрутку
     document.body.style.overflow = 'auto';
   };
 
-  // Закрытие по нажатию на клавишу Escape
   const handleKeyDown = (e) => {
     if (e.key === 'Escape') closeModal();
   };
 
-  // Закрытие по клику на оверлей
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) closeModal();
   };
@@ -31,7 +27,6 @@ const TeaTypes = () => {
     <div className="tea-types-block">
       <h2>Основные виды чая</h2>
 
-      {/* Сетка кнопок видов чая */}
       <div className={styles.teaTypesGrid}>
         {teaTypes.map((tea) => (
           <button
@@ -45,7 +40,6 @@ const TeaTypes = () => {
         ))}
       </div>
 
-      {/* Модальное окно */}
       {selectedTea && (
         <div 
           className="modal-overlay" 

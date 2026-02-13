@@ -22,13 +22,12 @@ const TeaSlider = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  // Настройки свайпа
   const swipeHandlers = useSwipeable({
     onSwipedLeft: nextSlide,
     onSwipedRight: prevSlide,
     preventDefaultTouchmoveEvent: true,
-    trackMouse: true, // также работает для мыши (drag)
-    delta: 50, // минимальное расстояние свайпа в пикселях
+    trackMouse: true, 
+    delta: 50, 
   });
 
   return (

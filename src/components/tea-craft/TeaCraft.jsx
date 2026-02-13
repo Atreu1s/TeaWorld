@@ -20,9 +20,9 @@ const TeaCraft = () => {
       <h2>Как правильно заварить чай</h2>
       
       <div className="steps-container">
-        {CraftSteps.map((step, index) => (
-          <div key={step.id} className="step">
-            <div className="step-number"> <p> {index + 1}</p></div>
+        {CraftSteps.map((step) => ( //Убрал index, попробовать без цифры
+          <div key={step.id + 1} className="step">
+            {/* <div className="step-number"> <p> {index + 1}</p></div> */}
 
             <div className='icon-container'>
               <img src={step.icon} alt={step.title} className="step-icon"/>

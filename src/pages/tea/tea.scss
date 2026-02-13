@@ -1,5 +1,13 @@
 @use "../../variables" as *;
 
+.TeaMainBody{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: 20px 0;
+}
 .teaText{
   font-size: $p-font-size;
+}
+.map-area{
+  width: 100%;
 }
