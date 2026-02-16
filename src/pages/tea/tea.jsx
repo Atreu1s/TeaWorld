@@ -1,6 +1,7 @@
 import TeaSlider from './components/TeaSlider/TeaSlider';
 import TeaTypes from './components/TeaTypes/TeaTypes'; 
 import TeaMap from './components/TeaMap/TeaMap';
+import TeaRecomend from './components/TeaRecomendation/TeaRec';
 import './tea.scss';
 //import WorldMapSVG from './world.svg';
 
@@ -55,6 +56,11 @@ const TeaWorld = () => {
         <section className="tea-types-section">
           <TeaTypes />
         </section>
+
+        <section>
+          <TeaRecomend />
+        </section>
+        
       </section>
       
 

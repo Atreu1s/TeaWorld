@@ -10,8 +10,8 @@
     padding: 10px 0;
     margin: 0 auto;
     max-width: 500px;
-    background-color: $accent-color2;
-    border-top: 3px solid $accent-color;
+    background-color: $background-color-main;
+    // border-top: 3px solid $accent-color;
     a {
         @extend %font-links;
         color: $text-color;
@@ -27,7 +27,7 @@
         font-size: 1.6rem;
         padding: 12px 15px;
         border: none;
-        background-color: $accent-color2;
+        background-color: transparent;
         cursor: pointer;
         color: $accent-color;
     }
@@ -42,7 +42,7 @@
         width: 100vw;
         height: 100%;
         display: block;
-        background-color: white;
+        background-color: $background-color-main;
         z-index: 99;
         a {
             @extend %font-links;
@@ -54,8 +54,8 @@
             text-align: center;
         }
         a:hover, a:focus {
-            background-color: rgb(172, 172, 172);
-            color: $accent-color;
+            background-color: $accent-color;
+            color: $on-accent-text;
         }
         .close-button{
             position: fixed;
@@ -65,13 +65,13 @@
             font-size: 1.6rem;
             padding: 20px 40px;
             border: none;
-            background-color: white;
+            background-color: transparent;
             cursor: pointer;
             width: 100%;
             text-align: center;
         }
         .close-button:hover, .close-button:focus{
-            background-color: rgb(172, 172, 172);
-            color: $accent-color;
+            background-color: $accent-color;
+            color: $on-accent-text;
         }
     }

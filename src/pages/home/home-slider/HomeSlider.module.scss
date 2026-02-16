@@ -1,38 +1,32 @@
-@use "../../variables" as *;
+@use "../../../variables" as *;
 
-
-.TeaHelpArea{
+.homeSlider{
   position: relative;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: clamp(200px, 40vh, 600px);
+}
+.slideContent{
   display: flex;
   justify-content: center;
   align-items: center;
-  background: $accent-color;
-  color: $on-accent-text;
-  box-shadow: $main-shadow;
-  border-radius: $elem-border-radius;
-}
-.HelpTeaHeader{
-  text-align: center;
-  h2 {
-    color: $on-accent-text;
-  }
-}
-.HelpSlidesTitle{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  font-size: $p-font-size;
-  color: $on-accent-text;
-}
-.HelpSlideDescription{
-  font-size: $p-font-size;
-  text-align: center;
-  width: 80%;
-  margin: 0 auto;
-  padding-bottom: 50px;
 }
 
+.carouselBtnPrev{
+  position: absolute;
+  left: 5%;
+  top: 45%;
+  background-color: transparent;
+  border: none;
+}
+.carouselBtnNext{
+  position: absolute;
+  right: 5%;
+  top: 45%;
+  background-color: transparent;
+  border: none;
+}
 .carouselIndicators {
   position: absolute;
   bottom: 30px;

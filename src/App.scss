@@ -1,17 +1,21 @@
 @font-face {
-    font-family: 'Almendra';
-    src: url(../public/fonts/AlmendraSC-Regular.ttf);
-}  
+  font-family: 'Almendra';
+  src: url('/fonts/AlmendraSC-Regular.ttf') format('truetype');
+}
 
 @font-face {
-    font-family: 'AlumniSans';
-    src: url(../public/fonts/Alumni_Sans/static/AlumniSans-Regular.ttf);
-}  
+  font-family: 'AlumniSans';
+  src: url('/fonts/Alumni_Sans/static/AlumniSans-Regular.ttf') format('truetype');
+} 
+
 
 body {
-  background-color: rgb(255, 255, 255);
+  background-color: #EEF2EB;
   font-size: 62.5%;
   font-family: 'AlumniSans';
+  color: #2A3732;
+  max-width: 2000px;
+  margin: 0 auto;
 }  
 .body-area {
     width: 90%;

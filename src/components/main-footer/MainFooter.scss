@@ -1,8 +1,8 @@
 @use "../../variables" as *;
 
 .main-footer{
-  background-color: $accent-color2;
-  color: $on-accent-text;
+  background-color: $background-color-main;
+  color: $text-color;
   padding: 10px;
   border-top: 3px solid $accent-color;
   margin-top: auto;
@@ -16,7 +16,7 @@
     margin: 0 auto;
   }
   h3{
-    color: $accent-color;
+    color: $text-color;
     font-size: $dectop-font-size;
     margin: 0 0 10px 0;
   }
@@ -25,7 +25,7 @@
     grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
     li{
       text-decoration: none;
-      color: $on-accent-text;
+      color: $text-color;
       font-size: $p-font-size;
       list-style-type: none;
     }

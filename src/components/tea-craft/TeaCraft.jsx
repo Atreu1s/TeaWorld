@@ -1,17 +1,19 @@
 import './TeaCraft.scss';
 
-import icon1 from '../../../public/infoimg/tea-leaf.png';
-import icon2 from '../../../public/infoimg/drop.png';
-import icon3 from '../../../public/infoimg/clock.png';
-import icon4 from '../../../public/infoimg/thermometer.png';
-import icon5 from '../../../public/infoimg/cup-of-drink.png';
+const icon1 = "/infoimg/tea-leaf.png";
+const icon2 = "/infoimg/drop.png";
+const icon3 = "/infoimg/clock.png";
+const icon4 = "/infoimg/thermometer.png";
+const icon5 = "/infoimg/teaitems.png";
+const icon6 = "/infoimg/cup-of-drink.png";
 
 const CraftSteps = [
   { id: 1, icon: icon1, title: 'Выбор чая', description: 'Выберите свежий чай высокого качества' },
   { id: 2, icon: icon2, title: 'Вода', description: 'Используйте фильтрованную воду' },
   { id: 3, icon: icon3, title: 'Время', description: 'Соблюдайте время заваривания (2-5 минут)' },
   { id: 4, icon: icon4, title: 'Температура', description: 'Подбирайте температуру воды под вид чая' },
-  { id: 5, icon: icon5, title: 'Наслаждение', description: 'Наслаждайтесь моментом!' }
+  { id: 5, icon: icon5, title: 'Посуда', description: 'Используйте чайники и сито из стекла, керамики или нержавейки.' },
+  { id: 6, icon: icon6, title: 'Наслаждение', description: 'Наслаждайтесь моментом!' }
 ]
 
 const TeaCraft = () => {

@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import slides from './TeaSlides.js';
-import styles from './TeaSlider.module.scss';
+import slides from './HomeSliderData.js';
+import styles from './HomeSlider.module.scss';
 
-const TeaSlider = () => {
+const HomeSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 10000);
-
     return () => clearInterval(timer);
   }, []);
 
@@ -26,27 +25,36 @@ const TeaSlider = () => {
     onSwipedLeft: nextSlide,
     onSwipedRight: prevSlide,
     preventDefaultTouchmoveEvent: true,
-    trackMouse: true, 
-    delta: 50, 
+    trackMouse: true,
+    delta: 50,
   });
 
   return (
     <div 
-      className={styles.teaSlider} 
+      className={styles.homeSlider} 
       style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
-      {...swipeHandlers} 
+      {...swipeHandlers}
+      aria-label="Main slider"
     >
-      <div className="carousel-slide">
+      <div>
         <div className={styles.slideContent}>
-          <h2 className="slide-title">{slides[currentSlide].title}</h2>
-          <p className="slide-description">{slides[currentSlide].description}</p>
+          <h2>{slides[currentSlide].title}</h2>
+          <p>{slides[currentSlide].description}</p>
         </div>
       </div>
 
-      <button className={styles.carouselBtnPrev} onClick={prevSlide} aria-label="Предыдущий слайд">
+      <button 
+        className={styles.carouselBtnPrev} 
+        onClick={prevSlide}
+        aria-label="Предыдущий слайд"
+      >
         ←
       </button>
-      <button className={styles.carouselBtnNext} onClick={nextSlide} aria-label="Следующий слайд">
+      <button 
+        className={styles.carouselBtnNext} 
+        onClick={nextSlide}
+        aria-label="Следующий слайд"
+      >
         →
       </button>
 
@@ -57,6 +65,9 @@ const TeaSlider = () => {
             className={`${styles.indicator} ${index === currentSlide ? styles.active : ''}`}
             onClick={() => setCurrentSlide(index)}
             aria-label={`Слайд ${index + 1}`}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && setCurrentSlide(index)}
           ></span>
         ))}
       </div>
@@ -64,4 +75,4 @@ const TeaSlider = () => {
   );
 };
 
-export default TeaSlider;
+export default HomeSlider;

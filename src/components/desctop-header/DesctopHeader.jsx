@@ -103,7 +103,7 @@ const DesktopNavigation = () => {
   return (
     <nav className="desctop-navigation">
       <div className='nav-container'>
-        <Link to="/">TeaWorld</Link>
+        <Link to="/" className='desctop-logo'>TeaWorld</Link>
         <div>
           <Link to="/" >Главная</Link> 
           <Link to="/profile" >Профиль</Link>

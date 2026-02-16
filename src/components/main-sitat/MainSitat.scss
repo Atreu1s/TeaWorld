@@ -9,8 +9,7 @@ h2{
   color: $on-accent-text;
   padding: 20px;
   border-radius: $elem-border-radius;
-  box-shadow: 0 0 10px $accent-color2;
-  border: 1px solid $accent-color2;
+  box-shadow: $main-shadow;
   .quote-author{
     text-align: end;
   }
