@@ -1,33 +1,122 @@
 @use "../../variables" as *;
 
-.main-footer{
+
+.main-footer {
   background-color: $background-color-main;
-  color: $text-color;
-  padding: 10px;
-  border-top: 3px solid $accent-color;
+  color: $accent-color;
   margin-top: auto;
-  padding-bottom: 80px; 
-  
-  @media (min-width: 501px) {
-    padding-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+  background-image: url('./footer.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-info {
+  margin-bottom: 30px;
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: $accent-color;
+    font-weight: 600;
   }
-  div {
-    width: 90%;
-    margin: 0 auto;
-  }
-  h3{
-    color: $text-color;
-    font-size: $dectop-font-size;
-    margin: 0 0 10px 0;
-  }
-  ul{
+
+  .tech-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
-    li{
-      text-decoration: none;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 10px 15px;
+      background: $background-color-main;
+      box-shadow: $main-shadow;
+      border-radius: $elem-border-radius;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
       color: $text-color;
-      font-size: $p-font-size;
-      list-style-type: none;
+
+      &:hover {
+        transform: translateX(5px);
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        color: $text-color;
+      }
+    }
+  }
+
+  @media (max-width: 800px) {
+    .tech-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 400px) {
+    .tech-list {
+      grid-template-columns: 1fr;
     }
   }
 }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  color: black;
+
+
+  .copyright,
+  .made-by {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+// .footer-decorative {
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
+//   width: 100%;
+//   height: 108px;
+//   object-fit: contain;
+//   pointer-events: none;
+//   z-index: 1;
+
+//   @media (max-width: 1024px) {
+//     height: 90px;
+//   }
+
+//   @media (max-width: 768px) {
+//     height: 80px;
+//   }
+
+//   @media (max-width: 480px) {
+//     height: 60px;
+//   }
+
+//   @media (max-width: 320px) {
+//     height: 50px;
+//   }
+// }

@@ -36,10 +36,13 @@ const HomeSlider = () => {
       {...swipeHandlers}
       aria-label="Main slider"
     >
-      <div>
+      <div className={styles.slideContentArea}>
         <div className={styles.slideContent}>
-          <h2>{slides[currentSlide].title}</h2>
-          <p>{slides[currentSlide].description}</p>
+          <div>
+            <h2>{slides[currentSlide].title}</h2>
+            <p>{slides[currentSlide].description}</p>
+          </div>
+          
         </div>
       </div>
 

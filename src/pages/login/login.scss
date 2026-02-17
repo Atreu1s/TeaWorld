@@ -3,19 +3,57 @@
 h1 {
   font-size: 2rem;
   text-align: center;
+  margin-top: 150px;
+  color: $accent-color;
 }
 
-form {
-  box-sizing: border-box; 
-  
+.auth-form {
+  position: relative;
   width: 90%;
   max-width: 600px;
-  border: 1px solid black;
+  border: 3px solid $accent-color;
   border-radius: 20px;
   padding: 20px;
-  background-color: $accent-color;
   color: white;
-  margin: 100px auto; 
+  margin: 20px auto; 
+  background-color: transparent;
+  box-sizing: border-box; 
+  &::before{
+    content: '';
+    position: absolute;
+    bottom: -180px; 
+    left: 63px; 
+    width: 50px; 
+    height: 50px; 
+    background-image: url('./img/form/kap.svg'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    pointer-events: none; 
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -85px; 
+    left: -3px; 
+    width: 200px; 
+    height: 100px; 
+    background-image: url('./img/form/letit.svg'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    pointer-events: none; 
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
   
   label {
     @extend %form-label;
@@ -31,6 +69,7 @@ form {
     @extend %form-button;
     width: 100%; 
     box-sizing: border-box;
+    margin-top: 20px;
   }
   
   .log-reg-link {

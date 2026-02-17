@@ -3,7 +3,6 @@ import TeaTypes from './components/TeaTypes/TeaTypes';
 import TeaMap from './components/TeaMap/TeaMap';
 import TeaRecomend from './components/TeaRecomendation/TeaRec';
 import './tea.scss';
-//import WorldMapSVG from './world.svg';
 
 const TeaWorld = () => {
   return (
@@ -19,7 +18,7 @@ const TeaWorld = () => {
           <div className="TeaMainBody">
             
             <div>
-              <h1>🍵 Чай: история в каждой чашке</h1>
+              <h1 className='TeaTitle'>🍵 Чай: история в каждой чашке</h1>
               <div className="teaText">
                 <p>
                   Чай — это больше, чем просто напиток. Это история целых цивилизаций, 

@@ -6,13 +6,42 @@
   background-size: cover;
   background-repeat: no-repeat;
   height: clamp(200px, 40vh, 600px);
+  width: 100%;
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.6) 50%,
+      rgba(0, 0, 0, 0.8) 100%
+    );
+    z-index: 1;
+  }
+}
+.slideContentArea{
+  position: relative;
+  height: 100%;
+  z-index: 2;
 }
 .slideContent{
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  color: $on-accent-text;
+  h2 {
+    font-size: $h2-font-size;
+  }
+  p {
+    font-size: $p-font-size;
+  }
 }
-
 .carouselBtnPrev{
   position: absolute;
   left: 5%;

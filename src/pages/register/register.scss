@@ -4,56 +4,114 @@
 h1 {
   font-size: 2rem;
   text-align: center;
+  color: $accent-color;
+  margin-top: 150px;
 }
 .reg-form{
+  position: relative;
   width: 90%;
   max-width: 600px;
-  border: 1px solid black;
+  border: 3px solid $accent-color;
   border-radius: 20px;
   padding: 20px;
-  background-color: $accent-color;
   color: white;
-  margin: 100px auto; 
+  margin: 20px auto; 
+  background-color: transparent;
+  &::before{
+    content: '';
+    position: absolute;
+    bottom: -180px; 
+    left: 63px; 
+    width: 50px; 
+    height: 50px; 
+    background-image: url('./img/form/kap.svg'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    pointer-events: none; 
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -85px; // Отступ от низа
+    left: -3px; // Отступ от левого края
+    width: 200px; // Ширина иконки
+    height: 100px; // Высота иконки
+    background-image: url('./img/form/letit.svg'); // Путь к вашему SVG
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
   label {
     display: block;
     width: 100%;
     font-size: $p-font-size;
+    color: $accent-color;
     padding: 10px 10px 0 10px;
   }
   input {
     display: block;
     width: 100%;
-    height: 20px;
-    margin: 0 10px 10px 10px;
+    height: 40px;
+    margin: 0 auto;
     font-size: $p-font-size;
-    background-color: transparent;
+    background-color: white;
     border: none;
-    border-bottom: 3px dotted white;
     outline: none;  
+    border-radius: $elem-border-radius;
+  }
+  .form-button-container {
+    width: 100%;
+    margin-top: 20px;
   }
   button {
-    font-size: $p-font-size;
-    background-color: transparent;
-    border: none;
-    color: $on-accent-text;
-    margin: 10px auto;
+      display: block;
+      width: 100%;
+      padding: 12px; 
+      font-size: $p-font-size;
+      font-weight: 600;
+      background-color: $accent-color; 
+      color: $on-accent-text; 
+      border: none;
+      border-radius: $elem-border-radius;
+      cursor: pointer;
+      transition: $optimal-transition;
+      box-sizing: border-box;
+      box-shadow: $main-shadow;
+      
+      &:hover, &:focus {
+        background-color: darken($accent-color, 10%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+      
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  
+}
+.log-reg-link {
     width: 100%;
-    max-width: 400px;
-  }
-  button:hover, button:focus {
-    color: $accent-color;
-    color: red; //Поменять на нужный
-  }
-  .log-reg-link {
-    width: 90%;
     margin: 10px auto;
     font-size: $p-font-size;
     max-width: 400px;
     text-align: center;
     a{
       text-decoration:underline;
-      color: $on-accent-text;
+      color: $accent-color;
     }
   }
-}
-

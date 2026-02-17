@@ -5,6 +5,9 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   padding: 20px 0;
 }
+.TeaTitle{
+  color: $accent-color;
+}
 .teaText{
   font-size: $p-font-size;
 }

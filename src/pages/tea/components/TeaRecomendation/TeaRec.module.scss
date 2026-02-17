@@ -2,8 +2,8 @@
 
 .recArea{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: 2fr 3fr; /* 40% / 60% */
+  gap: 40px;
   margin: 50px auto;
 }
 // @media (max-width: 1065px){
@@ -12,26 +12,68 @@
 //   }
 // }
 .dayRecTea{
-  background-color: $accent-color;
   padding: 10px;
-  color: $on-accent-text;
-  border-radius: $elem-border-radius;
-  box-shadow: $main-shadow;
+  color: $accent-color;
+  img {
+    max-width: 100%;
+    border-radius: $elem-border-radius;
+  }
+  h3 {
+    font-size: $h3-font-size;
+  }
+  p {
+    font-size: $p-font-size;
+  }
+}
+.seasonRecArea{
+  h2 {
+    font-size: $h2-font-size;
+    color: $accent-color;
+  }
 }
 .seasonRecElem{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
   width: 90%;
   margin: 0 auto;
   .seasonRecCard{
     text-align: center;
-    background-color: $accent-color;
-    color: $on-accent-text;
+    background-color: $background-color-main;
+    color: $accent-color;
     border-radius: $elem-border-radius;
-    box-shadow: 0 0 10px $background-color-main;
     max-width: 100%;
-    padding: 20px 0;
+    padding: 20px 0 50px 0;
     box-shadow: $main-shadow;
+    @media (max-width: 1300px){
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      padding: 10px 0;
+      text-align: start;
+      h3 {
+        padding: 0 20px;
+      }
+      p {
+        padding: 0 10px 0 0;
+      }
+    }
+    h3 {
+      font-size: $h3-font-size;
+    }
+    p {
+      font-size: $p-font-size;
+      width: 80%;
+      margin: 0 auto;
+    }
   }
+  @media (max-width: 1300px){
+    grid-template-columns: 1fr;
+  }
+  
 }
+@media (max-width: 900px){
+    .recArea{
+      display: block;
+    }
+  }

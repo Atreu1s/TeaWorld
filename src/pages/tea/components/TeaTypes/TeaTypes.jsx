@@ -24,7 +24,7 @@ const TeaTypes = () => {
   };
 
   return (
-    <div className="tea-types-block">
+    <div className={styles.teaTtypeh2}>
       <h2>Основные виды чая</h2>
 
       <div className={styles.teaTypesGrid}>

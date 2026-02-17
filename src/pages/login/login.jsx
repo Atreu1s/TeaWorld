@@ -43,9 +43,9 @@ export default function Login() {
       
       
       {error && <div>{error}</div>}
-
-      <form onSubmit={handleSubmit}>
-        <h1>Вход в систему</h1>
+      <h1>Вход в систему</h1>
+      <form className='auth-form' onSubmit={handleSubmit}>
+        
         <div>
           <label>Email</label>
           <input
@@ -76,11 +76,11 @@ export default function Login() {
         >
           {loading ? 'Вход...' : 'Войти'}
         </button>
-        <p className='log-reg-link'>
+        
+      </form>
+      <p className='log-reg-link'>
           Нет аккаунта? <a href="/register">Зарегистрироваться</a>
         </p>
-      </form>
-      
     </div>
   );
 }

@@ -24,7 +24,10 @@
     grid-template-columns: 1fr;
   }
 }
-
+.teaTtypeh2{
+  font-size: $h2-font-size;
+  color: $accent-color;
+}
 .teaModal{
   position: fixed;
   top: 0;

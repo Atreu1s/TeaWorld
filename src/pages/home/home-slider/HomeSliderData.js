@@ -1,16 +1,21 @@
 const sliderItems = [
   {
-    "image": "https://picsum.photos/id/237/1600/800",
+    "image": "./img/mainSlider/TeaR.png",
     "title": "История чая",
     "description": "Путешествие через века: от легендарного открытия Шэнь-нуня до современных традиций чаепития по всему миру."
   },
   {
-    "image": "https://picsum.photos/id/1025/1600/800",
+    "image": "./img/mainSlider/TeaK.png",
+    "title": "Традиции чаепития",
+    "description": "Погружаемся в мир чайных традиций: от медитативного безмолвия Востока до элегантных бесед в сердце Лондона."
+  },
+  {
+    "image": "./img/mainSlider/TeaO.png",
     "title": "Традиции чаепития",
     "description": "Изучаем культурные ритуалы разных стран — от японской чайной церемонии до английского afternoon tea."
   },
   {
-    "image": "https://picsum.photos/id/15/1600/800",
+    "image": "./img/mainSlider/TeaW.png",
     "title": "Искусство заваривания",
     "description": "Правильная температура, время и посуда помогают раскрыть аромат и вкус каждого сорта чая."
   }
