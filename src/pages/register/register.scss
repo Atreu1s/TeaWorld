@@ -1,4 +1,6 @@
 @use "../../variables" as *;
+@use "sass:color";
+
 
 
 h1 {
@@ -65,10 +67,12 @@ h1 {
     height: 40px;
     margin: 0 auto;
     font-size: $p-font-size;
+    padding: 0 15px;
     background-color: white;
     border: none;
     outline: none;  
     border-radius: $elem-border-radius;
+    box-sizing: border-box; 
   }
   .form-button-container {
     width: 100%;
@@ -90,7 +94,8 @@ h1 {
       box-shadow: $main-shadow;
       
       &:hover, &:focus {
-        background-color: darken($accent-color, 10%);
+        //background-color: darken($accent-color, 10%);
+        background-color: color.scale($accent-color, $lightness: -10%);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       }
@@ -115,3 +120,101 @@ h1 {
       color: $accent-color;
     }
   }
+
+  /* ===== СТИЛИ ДЛЯ ОШИБОК И ПОДСКАЗОК (не затрагивают основные элементы) ===== */
+
+/* Общая ошибка сервера */
+.alert-danger {
+  background-color: #fff5f5;
+  border: 1px solid #feb2b2;
+  color: #c53030;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  position: relative;
+
+  &::before {
+    content: '!';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #feb2b2;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+}
+
+/* Группа полей с ошибкой */
+.form-group.has-error {
+  margin-bottom: 24px; // чуть больше отступ для ошибки
+}
+
+/* Сообщение об ошибке под полем */
+.error-message {
+  color: #e53e3e;
+  font-size: 14px;
+  margin-top: 6px;
+  padding-left: 4px;
+  min-height: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+
+  &::before {
+    content: '•';
+    font-size: 22px;
+    line-height: 1;
+    margin-top: -1px;
+    color: #e53e3e;
+  }
+}
+
+/* Состояние ошибки у поля ввода */
+.form-group.has-error input {
+  border-color: #e53e3e !important;
+  background-color: #fff5f5 !important;
+  box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.2) !important;
+}
+
+/* Подсказка под полем */
+.hint-text {
+  color: #718096;
+  font-size: 13px;
+  margin-top: 6px;
+  margin-left: 4px;
+  font-style: normal;
+  line-height: 1.4;
+}
+
+/* Анимация кнопки при загрузке */
+.btn-loading {
+  position: relative;
+  color: transparent !important;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ===== КОНЕЦ СТИЛЕЙ ДЛЯ ОШИБОК ===== */

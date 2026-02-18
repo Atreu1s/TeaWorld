@@ -11,6 +11,7 @@
     margin: 0 auto;
     max-width: 500px;
     background-color: $background-color-main;
+    z-index: 999;
     // border-top: 3px solid $accent-color;
     a {
         @extend %font-links;
@@ -73,5 +74,22 @@
         .close-button:hover, .close-button:focus{
             background-color: $accent-color;
             color: $on-accent-text;
+        }
+        .exitButton{
+            @extend %font-links;
+            display: block;
+            padding: 20px 40px;
+            font-size: 1.6rem;
+            color: $text-color;
+            margin: 0 auto;
+            text-align: center;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            width: 100%;
+            &:hover, &:focus{
+            background-color: $accent-color;
+            color: $on-accent-text;
+            }
         }
     }

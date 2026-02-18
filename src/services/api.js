@@ -22,22 +22,23 @@ api.interceptors.request.use((config) => {
 
 // Объект с методами аутентификации
 export const authAPI = {
-  // Регистрация
+
   register: async (userData) => {
     const response = await api.post('/auth/register', userData);
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
+      window.dispatchEvent(new Event('storage'));
     }
     return response.data;
   },
 
-  // Логин (авторизация)
   login: async (credentials) => {
     const response = await api.post('/auth/login', credentials);
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
+      window.dispatchEvent(new Event('storage'));
     }
     return response.data;
   },

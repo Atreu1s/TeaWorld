@@ -91,7 +91,14 @@
     flex-direction: column;
     text-align: center;
   }
+  
 }
+@media (max-width: 500px) {
+  .main-footer{
+    padding-bottom: 60px;
+  }
+    
+  }
 
 // .footer-decorative {
 //   position: absolute;

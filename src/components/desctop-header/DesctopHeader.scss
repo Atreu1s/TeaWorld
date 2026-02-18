@@ -15,6 +15,7 @@
     max-width: 90%;
 
   }
+  
   a {
         @extend %font-links;
         font-size: $dectop-font-size;
@@ -25,6 +26,19 @@
         color: $hover-text;
       }
   div {
+    .exitButton {
+        @extend %font-links;
+        font-size: $dectop-font-size;
+        padding: 12px 15px;
+        color: $accent-color;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+      }
+      .exitButton:hover, .exitButton:focus {
+        color: $text-color;
+        text-shadow: $main-shadow;
+      }
     a {
         @extend %font-links;
         font-size: $dectop-font-size;
@@ -33,6 +47,7 @@
       }
       a:hover, a:focus {
         color: $text-color;
+        text-shadow: $main-shadow;
       }
     .desctop-logo{
       font-family: 'Almendra';
@@ -81,6 +96,23 @@
   z-index: 99;
   .modal-links{
     margin-top: 100px
+  }
+  .exitButton{
+    @extend %font-links;
+    display: block;
+    padding: 20px 40px;
+    font-size: 1.6rem;
+    color: $text-color;
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    &:hover, &:focus{
+      background-color: $accent-color;
+      color: $on-accent-text;
+    }
   }
   a {
     @extend %font-links;

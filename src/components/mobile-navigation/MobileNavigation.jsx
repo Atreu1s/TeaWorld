@@ -1,9 +1,41 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
+import { authAPI } from '../../services/api'; // Убедитесь, что путь правильный
 import './MobileNavigation.scss'; 
 
 const MobileNavigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(authAPI.isLoggedIn()); // ← Состояние авторизации
+  const navigate = useNavigate();
+
+  // Отслеживаем авторизацию: другие вкладки + текущая вкладка
+  useEffect(() => {
+    const checkAuth = () => {
+      setIsLoggedIn(authAPI.isLoggedIn());
+    };
+
+    // Слушаем изменения в ДРУГИХ вкладках (событие storage)
+    window.addEventListener('storage', checkAuth);
+
+    // Периодическая проверка в ТЕКУЩЕЙ вкладке (раз в секунду)
+    const interval = setInterval(checkAuth, 1000);
+
+    // Проверяем при монтировании
+    checkAuth();
+
+    return () => {
+      window.removeEventListener('storage', checkAuth);
+      clearInterval(interval);
+    };
+  }, []);
+
+  // Обработчик выхода из системы
+  const handleLogout = () => {
+    authAPI.logout();
+    setIsLoggedIn(false);
+    setIsMenuOpen(false); // Закрываем меню после выхода
+    navigate('/');
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -60,11 +92,28 @@ const MobileNavigation = () => {
           onClick={toggleMenu}
         >
           <Link to="/" onClick={toggleMenu}>Главная</Link> 
-          <Link to="/profile" onClick={toggleMenu}>Профиль</Link>
-          <Link to="/teaworld" onClick={toggleMenu}>Чай</Link> 
-          <Link to="/register" onClick={toggleMenu}>Зарегистрироваться</Link> 
-          <Link to="/auth" onClick={toggleMenu}>Войти</Link> 
-          <Link to="/blog" onClick={toggleMenu}>Блог</Link> 
+          
+          {/* ← Условное отображение пунктов меню */}
+          {isLoggedIn ? (
+            <>
+              <Link to="/profile" onClick={toggleMenu}>Профиль</Link>
+              <Link to="/teaworld" onClick={toggleMenu}>Чай</Link> 
+              <Link to="/blog" onClick={toggleMenu}>Блог</Link>
+              <button 
+                onClick={(e) => { e.stopPropagation(); handleLogout(); }} 
+                className="exitButton"
+              >
+                Выйти
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/teaworld" onClick={toggleMenu}>Чай</Link> 
+              <Link to="/blog" onClick={toggleMenu}>Блог</Link>
+              <Link to="/register" onClick={toggleMenu}>Зарегистрироваться</Link> 
+              <Link to="/auth" onClick={toggleMenu}>Войти</Link> 
+            </>
+          )}
 
           <button onClick={toggleMenu} className="close-button">Закрыть</button>
         </div>

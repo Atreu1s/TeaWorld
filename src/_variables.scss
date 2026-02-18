@@ -1,3 +1,4 @@
+@use "sass:color";
 // Фоновые:
 // 1. #CCFFD5 
 // Акцентные коричневые:
@@ -56,7 +57,7 @@
 
 $background-color-main: #EEF2EB;
 $accent-color: #45594A;
-$accent-color2: #594636;
+$accent-color2: #3a4a3e;
 $text-color: #2A3732;
 $on-accent-text: white;
 $hover-text: $accent-color2;
@@ -118,7 +119,7 @@ $main-shadow: 0 0 10px $accent-color;
       box-shadow: $main-shadow;
       
       &:hover, &:focus {
-        background-color: darken($accent-color, 10%);
+        background-color: color.scale($accent-color, $lightness: -10%);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       }

@@ -1,74 +1,86 @@
-// ========== ИМПОРТЫ ==========
-
-// Импортируем Mongoose для работы с MongoDB
+// server/models/User.js
 import mongoose from 'mongoose';
-
-// Импортируем bcrypt для хеширования паролей
 import bcrypt from 'bcryptjs';
 
-// ======================================================
-
-
 // ========== СХЕМА ПОЛЬЗОВАТЕЛЯ ==========
-
-// Создаём схему — шаблон для документа в коллекции "users"
 const userSchema = new mongoose.Schema({
-  // Поле: имя пользователя
   username: {
-    type: String,              // Тип данных: строка
-    required: true,            // Обязательное поле
-    unique: true,              // Должно быть уникальным (не может быть 2 одинаковых)
-    trim: true,                // Удаляет пробелы в начале и конце
-    minlength: 3               // Минимальная длина: 3 символа
+    type: String,
+    required: [true, 'Имя пользователя обязательно'],
+    unique: true, // ← Уникальный индекс создаётся АВТОМАТИЧЕСКИ
+    trim: true,
+    minlength: [3, 'Имя должно содержать минимум 3 символа'],
+    maxlength: [30, 'Имя не должно превышать 30 символов'],
+    validate: {
+      validator: (v) => /^[a-zA-Z0-9_-]+$/.test(v),
+      message: 'Имя пользователя может содержать только буквы, цифры, дефис и подчёркивание'
+    }
   },
 
-  // Поле: email
   email: {
-    type: String,              // Тип данных: строка
-    required: true,            // Обязательное поле
-    unique: true,              // Должен быть уникальным
-    lowercase: true,           // Автоматически приводит к нижнему регистру
-    match: [                   // Валидация формата email
-      /^\S+@\S+\.\S+$/,        // Регулярное выражение для проверки
-      'Неверный формат email'  // Сообщение об ошибке
-    ]
+    type: String,
+    required: [true, 'Email обязателен'],
+    unique: true, // ← Уникальный индекс создаётся АВТОМАТИЧЕСКИ
+    lowercase: true,
+    trim: true,
+    match: [/^\S+@\S+\.\S+$/, 'Неверный формат email']
   },
 
-  // Поле: пароль
   password: {
-    type: String,              // Тип данных: строка
-    required: true,            // Обязательное поле
-    minlength: 6               // Минимальная длина: 6 символов
+    type: String,
+    required: [true, 'Пароль обязателен'],
+    minlength: [8, 'Пароль должен содержать минимум 8 символов'],
+    select: false // ← По умолчанию НЕ возвращается в запросах
+  },
+
+  passwordChangedAt: Date,
+  passwordResetToken: String,
+  passwordResetExpires: Date,
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
   }
 }, {
-  // Дополнительные опции схемы
-  timestamps: true             // Автоматически добавляет поля createdAt и updatedAt
+  timestamps: true
 });
 
 // ======================================================
+// ========== MIDDLEWARE: ХЕШИРОВАНИЕ ПАРОЛЯ ==========
+// ======================================================
 
+userSchema.pre('save', async function() {
+  if (!this.isModified('password')) return;
+  
+  this.password = await bcrypt.hash(this.password, 12);
+  
+  if (!this.isNew) {
+    this.passwordChangedAt = Date.now() - 1000;
+  }
+});
 
+// ======================================================
 // ========== МЕТОДЫ СХЕМЫ ==========
+// ======================================================
 
-// Метод для сравнения паролей
-// Используется при входе в систему
-userSchema.methods.comparePassword = function(candidatePassword) {
-  // bcrypt.compareSync сравнивает обычный пароль с хешированным
-  // candidatePassword — пароль, который ввёл пользователь
-  // this.password — хешированный пароль из базы данных
-  return bcrypt.compareSync(candidatePassword, this.password);
+userSchema.methods.comparePassword = async function(candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
+}; // метод для сравнения паролья который сравнивет хешированный пароль с вводимым
+
+userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
+    return JWTTimestamp < changedTimestamp;
+  }
+  return false;
 };
 
 // ======================================================
+// ✅ УДАЛИЛИ ДУБЛИРУЮЩИЕ ИНДЕКСЫ:
+// userSchema.index({ email: 1 });   ← УДАЛЕНО (уже есть через unique: true)
+// userSchema.index({ username: 1 }); ← УДАЛЕНО (уже есть через unique: true)
+// ======================================================
 
-
-// ========== СОЗДАНИЕ МОДЕЛИ ==========
-
-// Создаём модель "User" на основе схемы
-// Mongoose автоматически создаст коллекцию "users" в MongoDB
 const User = mongoose.model('User', userSchema);
 
-// Экспортируем модель, чтобы использовать её в других файлах
 export default User;
-
-// ======================================================
