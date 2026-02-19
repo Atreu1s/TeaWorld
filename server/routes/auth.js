@@ -117,6 +117,7 @@ router.get('/me', async (req, res) => {
       user: {
         id: user._id,
         username: user.username,
+        role: user.role,
         email: user.email,
         createdAt: user.createdAt
       }

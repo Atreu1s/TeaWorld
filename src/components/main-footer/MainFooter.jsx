@@ -25,7 +25,7 @@ const MainFooter = () => {
         
         <div className="footer-bottom">
           <p className="copyright">© {new Date().getFullYear()} Чайный мир. Все права защищены.</p>
-          <p className="made-by">Разработано с ❤️ на React</p>
+          <p className="made-by">Разработано на React</p>
         </div>
       </div>
       
