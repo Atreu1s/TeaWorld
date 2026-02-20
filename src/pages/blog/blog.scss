@@ -1,0 +1,47 @@
+@use "../../variables" as *;
+
+.BlogCard{
+  padding: 15px;
+  box-sizing: border-box;
+  border: 3px solid $accent-color;
+  border-radius: $elem-border-radius;
+  margin: 10px 0;
+  h2 {
+    font-size: $h2-font-size;
+  }
+  p {
+    font-size: $p-font-size;
+  }
+  span {
+    font-size: $p-font-size;
+  }
+  .ReadFullPost{
+    color: $accent-color;
+    font-size: $h3-font-size;
+    transition: $optimal-transition;
+    &:hover, &:focus {
+      text-shadow: 0 0 10px $accent-color;
+      text-decoration: none;
+    }
+  }
+}
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $p-font-size;
+  gap: 15px;
+}
+.paginationBtn{
+  background-color: $accent-color;
+  color: $on-accent-text;
+  font-size: $p-font-size;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: $optimal-transition;
+  border-radius: $elem-border-radius;
+  &:hover, &:focus {
+    color: $accent-color;
+    background-color: $background-color-main;
+  }
+}

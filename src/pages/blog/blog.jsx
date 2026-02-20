@@ -35,14 +35,14 @@ const Blog = () => {
   }
 
   return (
-    <div className="blog-container">
-      <div className="blog-header">
+    <div className="body-area">
+      <div>
         <h1>Блог</h1>
       </div>
 
       <div className="posts-grid">
         {posts.map(post => (
-          <div key={post._id} className="blog-post-card">
+          <div key={post._id} className="BlogCard">
             <div className="post-header">
               <h2 className="post-title">{post.title}</h2>
               <div className="post-meta">
@@ -69,8 +69,8 @@ const Blog = () => {
               </div>
             )}
             
-            <Link to={`/blog/${post._id}`} className="read-more">
-              Читать далее →
+            <Link to={`/blog/${post._id}`} className="ReadFullPost">
+              Читать далее
             </Link>
           </div>
         ))}
@@ -82,9 +82,9 @@ const Blog = () => {
           <button 
             onClick={() => setPage(p => Math.max(1, p - 1))} 
             disabled={page === 1}
-            className="pagination-btn"
+            className="paginationBtn"
           >
-            ← Предыдущая
+            Предыдущая
           </button>
           
           <span className="page-info">
@@ -94,9 +94,9 @@ const Blog = () => {
           <button 
             onClick={() => setPage(p => Math.min(totalPages, p + 1))} 
             disabled={page === totalPages}
-            className="pagination-btn"
+            className="paginationBtn"
           >
-            Следующая →
+            Следующая
           </button>
         </div>
       )}

@@ -9,11 +9,14 @@ import Auth from './pages/login/login';
 import TeaWorld from './pages/tea/tea';
 import Profile from './pages/profile/Profile';
 import Blog from './pages/blog/blog';
+import FullPostView from './components/FullPostView/FullPostView';
+import BlogEditPost from './pages/PostRedactor/PostEditPost';
 
 import MobileHeader from './components/mobile-header/MobileHeader';
 import MobileNavigation from './components/mobile-navigation/MobileNavigation';
 import DesctopHeader from './components/desctop-header/DesctopHeader';
 import MainFooter from './components/main-footer/MainFooter';
+
 
 function App() {
   const isMobile = useHeaderSwitch('(max-width: 500px)');
@@ -42,6 +45,8 @@ function App() {
             <Route path="/auth" element={<Auth />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<FullPostView />} />
+            <Route path="/blog/edit/:id" element={<BlogEditPost />} />
           </Routes>
         </main>
         <MainFooter />

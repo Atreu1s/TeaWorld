@@ -1,0 +1,59 @@
+@use "../../../variables" as *;
+
+.posts-list{
+  border: 3px solid $accent-color;
+  border-radius: $elem-border-radius;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 85%;
+  max-height: 600px;
+
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: $accent-color $background-color-main;
+  &:-webkit-scrollbar{
+    width: 10px;
+  }
+  &:-webkit-scrollbar-track{
+    background: $background-color-main;
+  }
+  &:-webkit-scrollbar-thumb{
+    background-color: $accent-color;
+    border-radius: $elem-border-radius;
+    border: 1px solid $accent-color;
+  }
+  .post-card {
+    border: 3px solid $accent-color;
+    border-radius: $elem-border-radius;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 5px 0;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+
+    button {
+      background-color: $accent-color;
+      color: $on-accent-text;
+      border: 2px solid $accent-color;
+      border-radius: $elem-border-radius;
+      cursor: pointer;
+      font-size: $p-font-size;
+      &:hover, &:focus {
+        background-color: $background-color-main;
+        color: $accent-color;
+      }
+    }
+      h3 {
+        margin: 5px 0;
+        font-size: $p-font-size;
+      }
+      p, span {
+        font-size: $p-font-size;
+      }
+      
+  }
+}

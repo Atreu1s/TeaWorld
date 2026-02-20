@@ -1,0 +1,122 @@
+// src/components/admin/UserManagement.scss
+.user-management {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.user-management h2 {
+  font-size: 24px;
+  margin: 0 0 20px;
+  color: #2d3748;
+  font-weight: 700;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table-header,
+.user-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr;
+  padding: 12px 14px;
+  align-items: center;
+  text-align: left;
+}
+
+.users-table-header {
+  font-weight: 600;
+  background: #f1f5f9;
+  border-radius: 8px 8px 0 0;
+}
+
+.user-row {
+  border-bottom: 1px solid #e2e8f0;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+/* 🔴 Подсветка заблокированных пользователей */
+.user-blocked {
+  background-color: #fff5f5;
+  border-left: 4px solid #e53e3e;
+}
+
+.user-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-blocked {
+  background-color: #fed7d7;
+  color: #c53030;
+}
+
+.status-active {
+  background-color: #c6f6d5;
+  color: #22543d;
+}
+
+.user-role {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.role-admin {
+  background: linear-gradient(90deg, #ff416c, #ff4b2b);
+  color: white;
+}
+
+.role-expert {
+  background: linear-gradient(90deg, #11998e, #38ef7d);
+  color: white;
+}
+
+.role-user {
+  background: #e2e8f0;
+  color: #4a5568;
+}
+
+.block-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &.block {
+    background: #e53e3e;
+    color: white;
+    
+    &:hover:not(:disabled) {
+      background: #c53030;
+      transform: translateY(-2px);
+    }
+  }
+  
+  &.unblock {
+    background: #38a169;
+    color: white;
+    
+    &:hover:not(:disabled) {
+      background: #2f855a;
+      transform: translateY(-2px);
+    }
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

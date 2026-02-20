@@ -1,4 +1,3 @@
-// server/routes/auth.js
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -6,7 +5,6 @@ import User from '../models/User.js';
 
 const router = express.Router();
 
-// ========== РЕГИСТРАЦИЯ ==========
 router.post('/register', async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -14,19 +12,17 @@ router.post('/register', async (req, res) => {
     if (!username || !email || !password) {
       return res.status(400).json({ message: 'Все поля обязательны' });
     }
-    // закидывает переменную на наличие пользователей с таки логином и почтой
     const existingUser = await User.findOne({ 
       $or: [{ email }, { username }] 
     });
-    // проверяет че там с этой переменной
     if (existingUser) {
       return res.status(400).json({ 
         message: 'Пользователь с таким email или именем уже существует' 
       });
     }
 
-    const user = new User({ username, email, password }); // создание записи
-    await user.save(); // сохранение записи в БД
+    const user = new User({ username, email, password }); 
+    await user.save(); 
 
     const token = jwt.sign(
       { userId: user._id, email: user.email },
@@ -50,7 +46,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// ========== ЛОГИН ==========
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -59,7 +54,6 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Email и пароль обязательны' });
     }
 
-    // 🔑 КРИТИЧЕСКИ ВАЖНО: загружаем пароль явно!
     const user = await User.findOne({ email }).select('+password'); // создаем переменную которая ищет по почте и провяет соответствие пароля... +password принудительно включить поле, исключённое по умолчанию
     
     if (!user || !user.password) {
@@ -96,7 +90,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// ========== ПРОФИЛЬ ==========
 router.get('/me', async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
@@ -129,5 +122,4 @@ router.get('/me', async (req, res) => {
   }
 });
 
-// 🔑 КРИТИЧЕСКИ ВАЖНО: экспорт по умолчанию
 export default router;

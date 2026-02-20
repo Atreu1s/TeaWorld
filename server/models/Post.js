@@ -1,4 +1,3 @@
-// server/models/Post.js
 import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema({
@@ -49,10 +48,9 @@ const postSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Индексы для производительности
-postSchema.index({ createdAt: -1 }); // Сортировка по дате создания
-postSchema.index({ author: 1 });     // Поиск по автору
-postSchema.index({ tags: 1 });       // Поиск по тегам
+postSchema.index({ createdAt: -1 }); 
+postSchema.index({ author: 1 });    
+postSchema.index({ tags: 1 });       
 
 const Post = mongoose.model('Post', postSchema);
 

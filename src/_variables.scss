@@ -65,7 +65,7 @@ $hover-text: $accent-color2;
 $h1-font-size: clamp(1.8rem, 2.5vw, 3.5rem);
 $h2-font-size: clamp(1.5rem, 2vw, 3rem);
 $h3-font-size: clamp(1.3rem, 1.6vw, 2.2rem);
-$p-font-size: clamp(0.9rem, 1vw, 1.2rem);
+$p-font-size: clamp(1rem, 1vw, 1.3rem);
 $dectop-font-size: 1.6rem;
 
 $optimal-transition: .2s;
@@ -78,6 +78,7 @@ $main-shadow: 0 0 10px $accent-color;
     text-decoration: none;
     font-family: "AlumniSans";
     transition: .2s;
+    font-size: $p-font-size;
 }
 // Шаблон стилей для формы 
 %form-label {

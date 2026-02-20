@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-// URL бэкенда (из .env файла)
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-// Создаём экземпляр axios с базовыми настройками
 const api = axios.create({
   baseURL: API_URL,
   headers: {
@@ -11,7 +9,6 @@ const api = axios.create({
   }
 });
 
-// Автоматически добавляем токен к каждому запросу
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -20,7 +17,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Объект с методами аутентификации
 export const authAPI = {
 
   register: async (userData) => {
@@ -43,13 +39,11 @@ export const authAPI = {
     return response.data;
   },
 
-  // Выход из системы
   logout: () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   },
 
-  // Получение данных текущего пользователя с сервера
   getCurrentUser: async () => {
     const token = localStorage.getItem('token');
     if (!token) return null;
@@ -65,12 +59,10 @@ export const authAPI = {
     }
   },
 
-  // Проверка авторизации
   isLoggedIn: () => {
     return !!localStorage.getItem('token');
   },
 
-  // Получение данных пользователя из localStorage (без запроса к серверу)
   getUser: () => {
     const userStr = localStorage.getItem('user');
     return userStr ? JSON.parse(userStr) : null;

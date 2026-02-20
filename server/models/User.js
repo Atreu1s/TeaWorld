@@ -1,13 +1,11 @@
-// server/models/User.js
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-// ========== СХЕМА ПОЛЬЗОВАТЕЛЯ ==========
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: [true, 'Имя пользователя обязательно'],
-    unique: true, // ← Уникальный индекс создаётся АВТОМАТИЧЕСКИ
+    unique: true, 
     trim: true,
     minlength: [3, 'Имя должно содержать минимум 3 символа'],
     maxlength: [30, 'Имя не должно превышать 30 символов'],
@@ -16,11 +14,15 @@ const userSchema = new mongoose.Schema({
       message: 'Имя пользователя может содержать только буквы, цифры, дефис и подчёркивание'
     }
   },
+    isBlocked: {
+    type: Boolean,
+    default: false
+  },
 
   email: {
     type: String,
     required: [true, 'Email обязателен'],
-    unique: true, // ← Уникальный индекс создаётся АВТОМАТИЧЕСКИ
+    unique: true, 
     lowercase: true,
     trim: true,
     match: [/^\S+@\S+\.\S+$/, 'Неверный формат email']
@@ -30,7 +32,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Пароль обязателен'],
     minlength: [8, 'Пароль должен содержать минимум 8 символов'],
-    select: false // ← По умолчанию НЕ возвращается в запросах
+    select: false 
   },
 
   passwordChangedAt: Date,
@@ -45,9 +47,6 @@ const userSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// ======================================================
-// ========== MIDDLEWARE: ХЕШИРОВАНИЕ ПАРОЛЯ ==========
-// ======================================================
 
 userSchema.pre('save', async function() {
   if (!this.isModified('password')) return;
@@ -59,13 +58,9 @@ userSchema.pre('save', async function() {
   }
 });
 
-// ======================================================
-// ========== МЕТОДЫ СХЕМЫ ==========
-// ======================================================
-
 userSchema.methods.comparePassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
-}; // метод для сравнения паролья который сравнивет хешированный пароль с вводимым
+}; 
 
 userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
   if (this.passwordChangedAt) {
@@ -74,12 +69,6 @@ userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
   }
   return false;
 };
-
-// ======================================================
-// ✅ УДАЛИЛИ ДУБЛИРУЮЩИЕ ИНДЕКСЫ:
-// userSchema.index({ email: 1 });   ← УДАЛЕНО (уже есть через unique: true)
-// userSchema.index({ username: 1 }); ← УДАЛЕНО (уже есть через unique: true)
-// ======================================================
 
 const User = mongoose.model('User', userSchema);
 

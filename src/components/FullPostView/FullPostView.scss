@@ -1,0 +1,48 @@
+@use "../../variables" as *;
+
+.post-area{
+  h1 {
+    font-size: $h1-font-size;
+  }
+  span{
+    font-size: $p-font-size;
+    font-weight: bold;
+    display: block;
+    
+  }
+  .post-tags-detail{
+    margin: 20px 0;
+  }
+  p{
+    font-size: $p-font-size;
+  }
+  .GoBackBtn{
+    background-color: $accent-color;
+    color: $on-accent-text;
+    font-size: $p-font-size;
+    padding: 5px 15px;
+    cursor: pointer;
+    transition: $optimal-transition;
+    border-radius: $elem-border-radius;
+    &:hover, &:focus {
+      color: $accent-color;
+      background-color: $background-color-main;
+    }
+   }
+  .GoBlogBtn{
+    background-color: $accent-color;
+    color: $on-accent-text;
+    font-size: $p-font-size;
+    padding: 5px 15px;
+    cursor: pointer;
+    transition: $optimal-transition;
+    border-radius: $elem-border-radius;
+    border: 2px solid $accent-color;
+    text-decoration: none;
+    margin: 0 10px;
+    &:hover, &:focus {
+      color: $accent-color;
+      background-color: $background-color-main;
+    }
+  }
+}

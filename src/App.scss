@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 @font-face {
   font-family: 'Almendra';
   src: url('/fonts/AlmendraSC-Regular.ttf') format('truetype');
@@ -16,6 +18,21 @@ body {
   color: #2A3732;
   max-width: 2000px;
   margin: 0 auto;
+
+   overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: $accent-color $background-color-main;
+  &:-webkit-scrollbar{
+    width: 10px;
+  }
+  &:-webkit-scrollbar-track{
+    background: $background-color-main;
+  }
+  &:-webkit-scrollbar-thumb{
+    background-color: $accent-color;
+    border-radius: $elem-border-radius;
+    border: 1px solid $accent-color;
+  }
 }  
 .body-area {
     width: 90%;

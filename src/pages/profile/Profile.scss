@@ -5,6 +5,7 @@
   width: 90%;
   max-width: 600px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 .profile-info{
   border: 3px solid $accent-color;
@@ -12,6 +13,7 @@
   border-radius: $elem-border-radius;
   width: 100%;
   margin: 50px auto 20px auto;
+  box-sizing: border-box;
   span {
     font-size: $p-font-size;
   }
@@ -25,11 +27,9 @@
   transition: $optimal-transition;
   border-radius: $elem-border-radius;
   margin-top: 20px;
-  &:hover {
-    background-color: color.scale($accent-color, $lightness: -10%);
-  }
-  &:focus {
-    background-color: color.scale($accent-color, $lightness: -10%);
+  &:hover, &:focus {
+    color: $accent-color;
+    background-color: $background-color-main;
   }
 }
 .profile-field{
@@ -45,10 +45,8 @@
   cursor: pointer;
   transition: $optimal-transition;
   border-radius: $elem-border-radius;
-  &:hover {
-    background-color: color.scale($accent-color, $lightness: -10%);
-  }
-  &:focus {
-    background-color: color.scale($accent-color, $lightness: -10%);
+  &:hover, &:focus {
+    color: $accent-color;
+    background-color: $background-color-main;
   }
 }

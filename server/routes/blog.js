@@ -1,4 +1,3 @@
-// server/routes/blog.js
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import Post from '../models/Post.js';
@@ -6,7 +5,6 @@ import User from '../models/User.js';
 
 const router = express.Router();
 
-// Middleware для проверки авторизации
 const protect = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -29,7 +27,6 @@ const protect = async (req, res, next) => {
   }
 };
 
-// Middleware для проверки прав администратора
 const isAdmin = (req, res, next) => {
   if (req.user.role !== 'admin') {
     return res.status(403).json({ message: 'Доступ запрещён. Требуются права администратора.' });
@@ -37,7 +34,6 @@ const isAdmin = (req, res, next) => {
   next();
 };
 
-// Middleware для проверки прав эксперта или администратора
 const isExpertOrAdmin = (req, res, next) => {
   if (req.user.role !== 'expert' && req.user.role !== 'admin') {
     return res.status(403).json({ message: 'Доступ запрещён. Требуются права эксперта или администратора.' });
@@ -45,7 +41,6 @@ const isExpertOrAdmin = (req, res, next) => {
   next();
 };
 
-// Middleware для проверки авторства поста (для экспертов)
 const checkPostOwnership = async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -54,19 +49,17 @@ const checkPostOwnership = async (req, res, next) => {
       return res.status(404).json({ message: 'Пост не найден' });
     }
 
-    // Если пользователь не админ, проверяем авторство
     if (req.user.role !== 'admin' && post.author.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: 'У вас нет прав для редактирования этого поста' });
     }
     
-    req.post = post; // Передаём пост в следующий middleware
+    req.post = post; 
     next();
   } catch (error) {
     res.status(500).json({ message: 'Ошибка сервера' });
   }
 };
 
-// ========== РОУТ 1: Получить все посты (публичный) ==========
 router.get('/posts', async (req, res) => {
   try {
     const { page = 1, limit = 10, tag } = req.query;
@@ -81,7 +74,7 @@ router.get('/posts', async (req, res) => {
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .populate('author', 'username')
-      .lean(); // .lean() для оптимизации
+      .lean(); 
 
     const count = await Post.countDocuments(query);
 
@@ -97,7 +90,6 @@ router.get('/posts', async (req, res) => {
   }
 });
 
-// ========== РОУТ 2: Получить пост по ID (публичный) ==========
 router.get('/posts/:id', async (req, res) => {
   try {
     const post = await Post.findById(req.params.id)
@@ -115,22 +107,18 @@ router.get('/posts/:id', async (req, res) => {
   }
 });
 
-// ========== РОУТ 3: Создать пост (только эксперт или админ) ==========
 router.post('/posts', protect, isExpertOrAdmin, async (req, res) => {
   try {
     const { title, content, tags = [] } = req.body;
 
-    // Валидация
     if (!title || !content) {
       return res.status(400).json({ message: 'Заголовок и текст поста обязательны' });
     }
 
-    // Ограничиваем количество тегов
     if (tags.length > 10) {
       return res.status(400).json({ message: 'Максимум 10 тегов' });
     }
 
-    // Создаём пост
     const post = await Post.create({
       title,
       content,
@@ -149,10 +137,8 @@ router.post('/posts', protect, isExpertOrAdmin, async (req, res) => {
   }
 });
 
-// ========== РОУТ 4: Получить посты пользователя (для профиля) ==========
 router.get('/my-posts', protect, async (req, res) => {
   try {
-    // Эксперт видит только свои посты, админ видит все
     const query = req.user.role === 'admin' 
       ? {} 
       : { author: req.user._id };
@@ -169,12 +155,10 @@ router.get('/my-posts', protect, async (req, res) => {
   }
 });
 
-// ========== РОУТ 5: Обновить пост (эксперт - только свои, админ - все) ==========
 router.put('/posts/:id', protect, isExpertOrAdmin, checkPostOwnership, async (req, res) => {
   try {
     const { title, content, tags } = req.body;
 
-    // Обновляем пост
     req.post.title = title || req.post.title;
     req.post.content = content || req.post.content;
     if (tags) req.post.tags = tags;
@@ -191,7 +175,6 @@ router.put('/posts/:id', protect, isExpertOrAdmin, checkPostOwnership, async (re
   }
 });
 
-// ========== РОУТ 6: Удалить пост (эксперт - только свои, админ - все) ==========
 router.delete('/posts/:id', protect, isExpertOrAdmin, checkPostOwnership, async (req, res) => {
   try {
     await Post.findByIdAndDelete(req.params.id);
