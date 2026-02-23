@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+if ('scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
+
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import 'normalize.css';
 import './App.scss';
 import { useHeaderSwitch } from './hooks/useHeaderSwitch';
@@ -17,12 +22,23 @@ import MobileNavigation from './components/mobile-navigation/MobileNavigation';
 import DesctopHeader from './components/desctop-header/DesctopHeader';
 import MainFooter from './components/main-footer/MainFooter';
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
 
 function App() {
   const isMobile = useHeaderSwitch('(max-width: 500px)');
 
   return (
     <Router>  
+      <ScrollToTop />
       <div className="app">
         <div>
           {isMobile ? (

@@ -78,7 +78,7 @@ const FullPostView = () => {
         )}
         
         <div>
-          <p>{post.content}</p>
+          <p className='postTextContent'>{post.content}</p>
         </div>
         
         <div className="post-detail-actions">

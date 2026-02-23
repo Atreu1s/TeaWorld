@@ -1,11 +1,9 @@
-// server/routes/admin.js
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 const router = express.Router();
 
-// Middleware: проверка администратора
 const protectAdmin = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -28,7 +26,7 @@ const protectAdmin = async (req, res, next) => {
   }
 };
 
-// Получить всех пользователей
+
 router.get('/users', protectAdmin, async (req, res) => {
   try {
     const users = await User.find()
@@ -42,7 +40,7 @@ router.get('/users', protectAdmin, async (req, res) => {
   }
 });
 
-// Заблокировать/разблокировать пользователя
+
 router.patch('/users/:id/block', protectAdmin, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -51,7 +49,6 @@ router.patch('/users/:id/block', protectAdmin, async (req, res) => {
       return res.status(404).json({ message: 'Пользователь не найден' });
     }
     
-    // Инвертируем статус блокировки
     user.isBlocked = !user.isBlocked;
     await user.save();
     

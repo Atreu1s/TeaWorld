@@ -3,9 +3,12 @@
 
 .profile-container{
   width: 90%;
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
+  h1 {
+    font-size: $h1-font-size;
+  }
 }
 .profile-info{
   border: 3px solid $accent-color;
@@ -14,6 +17,7 @@
   width: 100%;
   margin: 50px auto 20px auto;
   box-sizing: border-box;
+  box-shadow: $main-shadow;
   span {
     font-size: $p-font-size;
   }

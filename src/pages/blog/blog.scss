@@ -5,7 +5,8 @@
   box-sizing: border-box;
   border: 3px solid $accent-color;
   border-radius: $elem-border-radius;
-  margin: 10px 0;
+  margin: 10px auto;
+  max-width: 1200px;
   h2 {
     font-size: $h2-font-size;
   }

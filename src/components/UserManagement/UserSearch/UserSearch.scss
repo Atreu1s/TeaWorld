@@ -1,0 +1,27 @@
+@use "./../../../variables" as *;
+
+.filters-container{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  font-size: $p-font-size;
+  gap: 10px;
+  flex-wrap: wrap;
+  // display: grid;
+  // align-items: center;
+  // grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  // font-size: $p-font-size;
+  // gap: 15px;
+  width: 100%;
+  input {
+    width: 100%;
+  }
+  .filter-group{
+    display: flex;
+  }
+  .search-clear-btn, .btn-reset-filters{
+    background-color: $accent-color;
+    color: $on-accent-text;
+    cursor: pointer;
+  }
+} 

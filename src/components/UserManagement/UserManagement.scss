@@ -1,49 +1,62 @@
-// src/components/admin/UserManagement.scss
+@use "../../variables" as *;
+@use "sass:color";
+
 .user-management {
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid #e2e8f0;
+  margin: 20px auto;
+  padding: 15px;
+  border: 3px solid $accent-color;
+  border-radius: $elem-border-radius;
+  box-sizing: border-box;
+  box-shadow: $main-shadow;
+  width: 100%;
+  max-height: 600px;
 }
 
 .user-management h2 {
-  font-size: 24px;
-  margin: 0 0 20px;
-  color: #2d3748;
-  font-weight: 700;
+  font-size: $h3-font-size;
+  color: $accent-color;
+  margin: 10px 0;
 }
 
 .users-table {
   width: 100%;
-  border-collapse: collapse;
+  font-size: $p-font-size;
+  overflow-x: auto;
 }
 
 .users-table-header,
 .user-row {
   display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr;
-  padding: 12px 14px;
+  grid-template-columns: repeat(5, minmax(120px, 200px));
   align-items: center;
   text-align: left;
+  gap: 10px;
+  width: 100%;
+
+  box-sizing: border-box;
+  min-width: max-content
 }
 
 .users-table-header {
-  font-weight: 600;
-  background: #f1f5f9;
-  border-radius: 8px 8px 0 0;
+  font-weight: bold;
+  background-color: $accent-color;
+  color: $on-accent-text;
+  padding: 10px;
+  margin: 10px 0;
 }
 
 .user-row {
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid $accent-color;
+  padding-left: 5px;
+  box-sizing: border-box;
   
   &:last-child {
     border-bottom: none;
   }
 }
 
-/* 🔴 Подсветка заблокированных пользователей */
 .user-blocked {
-  background-color: #fff5f5;
-  border-left: 4px solid #e53e3e;
+  background-color: #ffeeee;
 }
 
 .user-status {
@@ -51,17 +64,17 @@
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 13px;
-  font-weight: 600;
+  font-size: $p-font-size;
 }
 
 .status-blocked {
-  background-color: #fed7d7;
-  color: #c53030;
+  background-color: $boss-users;
+  color: $on-accent-text;
 }
 
 .status-active {
-  background-color: #c6f6d5;
-  color: #22543d;
+  background-color: $users-color;
+  color: $accent-color;
 }
 
 .user-role {
@@ -69,17 +82,17 @@
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 13px;
-  font-weight: 600;
+  font-size: $p-font-size;
 }
 
 .role-admin {
-  background: linear-gradient(90deg, #ff416c, #ff4b2b);
-  color: white;
+  background: $users-color;
+  color: $text-color;
 }
 
 .role-expert {
-  background: linear-gradient(90deg, #11998e, #38ef7d);
-  color: white;
+  background: $users-color;
+  color: $text-color;
 }
 
 .role-user {
@@ -88,30 +101,32 @@
 }
 
 .block-btn {
-  padding: 8px 16px;
+  margin: 5px 0;
+  padding: 4px 10px;
+  width: 120px;
   border: none;
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: $elem-border-radius;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: $optimal-transition;
   
   &.block {
-    background: #e53e3e;
-    color: white;
+    background: $users-color;
+    color: $accent-color;
     
     &:hover:not(:disabled) {
-      background: #c53030;
-      transform: translateY(-2px);
+      background: $accent-color;
+      color: $on-accent-text;
     }
   }
   
   &.unblock {
-    background: #38a169;
-    color: white;
+    background: $users-color;
+    color: $text-color;
     
     &:hover:not(:disabled) {
-      background: #2f855a;
-      transform: translateY(-2px);
+      background: $accent-color;
+      color: $on-accent-text;
     }
   }
   
@@ -120,3 +135,9 @@
     cursor: not-allowed;
   }
 }
+.btn-clear-search {
+    background-color: $accent-color;
+    color: $on-accent-text;
+    cursor: pointer;
+    padding: 5px;
+  }

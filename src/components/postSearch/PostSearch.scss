@@ -1,0 +1,22 @@
+@use '../../variables' as *;
+
+.post-filters-container {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  font-size: $p-font-size;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.posts-grid{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.search-clear-btn, .btn-reset-filters{
+    background-color: $accent-color;
+    color: $on-accent-text;
+    cursor: pointer;
+  }

@@ -46,3 +46,7 @@
     }
   }
 }
+.postTextContent{ // ! важные стили, чтобы сохранить переносы строчек и слов для вывода
+  white-space: pre-wrap; 
+  word-wrap: break-word; 
+}
