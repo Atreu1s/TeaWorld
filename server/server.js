@@ -2,9 +2,12 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+
 import authRoutes from './routes/auth.js';
 import blogRoutes from './routes/blog.js'; 
 import adminRoutes from './routes/admin.js';
+
 
 
 dotenv.config();
@@ -13,9 +16,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors()); // разрешает запросы с любого порта фронт (5173)->(5000)->(27017)
+//app.use(cors()); // разрешает запросы с любого порта фронт (5173)->(5000)->(27017)
+app.use(cors({
+  origin: 'http://localhost:5173',  // Порт вашего фронтенда
+  credentials: true  // ← КРИТИЧНО для cookies!
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
@@ -54,5 +63,3 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`Бэкенд запущен на http://localhost:${PORT}`);
 });
-
-app.use('/api/admin', adminRoutes);

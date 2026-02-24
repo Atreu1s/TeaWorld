@@ -6,61 +6,97 @@ const api = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json'
-  }
+  },
+  withCredentials: true
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken'); 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-export const authAPI = {
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
 
+    // 🔑 НОВОЕ: НЕ ДЕЛАТЬ REFRESH ДЛЯ ЗАПРОСОВ АВТОРИЗАЦИИ!
+    if (
+      originalRequest.url.includes('/auth/login') || 
+      originalRequest.url.includes('/auth/register') ||
+      originalRequest.url.includes('/auth/refresh')
+    ) {
+      return Promise.reject(error);
+    }
+
+    // Если ошибка 401 и запрос ещё не повторялся
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const response = await axios.post(
+          `${API_URL}/auth/refresh`,
+          {},
+          { withCredentials: true }  
+        );
+
+        const { accessToken } = response.data;
+        localStorage.setItem('accessToken', accessToken);
+
+        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        return api(originalRequest);
+      } catch (refreshError) {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('user');
+        window.location.href = '/auth';
+        return Promise.reject(refreshError);
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+export const authAPI = {
   register: async (userData) => {
     const response = await api.post('/auth/register', userData);
-    if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
+    if (response.data.accessToken) {
+      localStorage.setItem('accessToken', response.data.accessToken);
       localStorage.setItem('user', JSON.stringify(response.data.user));
-      window.dispatchEvent(new Event('storage'));
     }
     return response.data;
   },
 
   login: async (credentials) => {
     const response = await api.post('/auth/login', credentials);
-    if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
+    if (response.data.accessToken) {
+      localStorage.setItem('accessToken', response.data.accessToken);
       localStorage.setItem('user', JSON.stringify(response.data.user));
-      window.dispatchEvent(new Event('storage'));
     }
     return response.data;
   },
 
-  logout: () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-  },
-
-  getCurrentUser: async () => {
-    const token = localStorage.getItem('token');
-    if (!token) return null;
-
+  logout: async () => {
     try {
-      const response = await api.get('/auth/me');
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-      return response.data.user;
+      await api.post('/auth/logout');  
     } catch (error) {
-      localStorage.removeItem('token');
+      console.error('Ошибка выхода:', error);
+    } finally {
+      localStorage.removeItem('accessToken');
       localStorage.removeItem('user');
-      throw error;
     }
   },
 
+  getCurrentUser: async () => {
+    const userStr = localStorage.getItem('user');
+    return userStr ? JSON.parse(userStr) : null;
+  },
+
   isLoggedIn: () => {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('accessToken');  
   },
 
   getUser: () => {

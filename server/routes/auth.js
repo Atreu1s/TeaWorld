@@ -1,124 +1,188 @@
+// server/routes/auth.js
 import express from 'express';
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
+import RefreshToken from '../models/RefreshToken.js';
 
 const router = express.Router();
 
-router.post('/register', async (req, res) => {
-  try {
-    const { username, email, password } = req.body;
+const generateTokens = (userId) => {
+  const accessToken = jwt.sign(
+    { userId },                    
+    process.env.JWT_SECRET,        
+    { expiresIn: '15m' }          
+  );
 
-    if (!username || !email || !password) {
-      return res.status(400).json({ message: 'Все поля обязательны' });
-    }
-    const existingUser = await User.findOne({ 
-      $or: [{ email }, { username }] 
-    });
-    if (existingUser) {
-      return res.status(400).json({ 
-        message: 'Пользователь с таким email или именем уже существует' 
-      });
-    }
+  const refreshToken = jwt.sign(
+    { userId },
+    process.env.JWT_REFRESH_SECRET,  
+    { expiresIn: '7d' }
+  );
 
-    const user = new User({ username, email, password }); 
-    await user.save(); 
+  return { accessToken, refreshToken };
+};
 
-    const token = jwt.sign(
-      { userId: user._id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '7d' }
-    );
-
-    res.status(201).json({
-      message: 'Пользователь успешно зарегистрирован',
-      token,
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email
-      }
-    });
-
-  } catch (error) {
-    console.error('Ошибка регистрации:', error);
-    res.status(500).json({ message: 'Ошибка сервера' });
-  }
-});
+const saveRefreshToken = async (userId, refreshToken) => {
+  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); 
+  
+  await RefreshToken.create({
+    token: refreshToken,
+    user: userId,
+    expiresAt
+  });
+};
 
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ message: 'Email и пароль обязательны' });
-    }
-
-    const user = await User.findOne({ email }).select('+password'); // создаем переменную которая ищет по почте и провяет соответствие пароля... +password принудительно включить поле, исключённое по умолчанию
-    
-    if (!user || !user.password) {
-      return res.status(401).json({ message: 'Неверный email или пароль' }); // берем ту переменную и если не соответствует пароль или почта не найдена, то выводим ошибку
-    }
-
-    // Используем метод модели для сравнения паролей
-    const isPasswordValid = await user.comparePassword(password); // сравнение пароля, который в БД и который ввел пользователь и вызывает метод в схемах
-    
-    if (!isPasswordValid) {
+    const user = await User.findOne({ email }).select('+password');
+    if (!user) {
       return res.status(401).json({ message: 'Неверный email или пароль' });
     }
 
-    const token = jwt.sign(
-      { userId: user._id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '7d' }
-    );
+    if (user.isBlocked) {
+      return res.status(403).json({ message: 'Ваш аккаунт заблокирован. Обратитесь к администрации.' });
+    } 
+
+    const isValid = await bcrypt.compare(String(password), String(user.password));
+    console.log('Результат сравнения:', isValid);
+    if (!isValid) {
+      return res.status(401).json({ message: 'Неверный email или пароль' });
+    }
+
+    const { accessToken, refreshToken } = generateTokens(user._id);
+    
+    await saveRefreshToken(user._id, refreshToken);
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,                    
+      secure: process.env.NODE_ENV === 'production',  
+      sameSite: 'strict',               
+      maxAge: 7 * 24 * 60 * 60 * 1000    
+    });
 
     res.json({
-      message: 'Успешный вход',
-      token,
+      message: 'Вход выполнен',
       user: {
         id: user._id,
         username: user.username,
         email: user.email,
-        registeredAt: user.createdAt
-      }
+        role: user.role,
+        isBlocked: user.isBlocked
+      },
+      accessToken
     });
-
   } catch (error) {
-    console.error('Ошибка логина:', error);
+    console.error('Ошибка входа:', error);
     res.status(500).json({ message: 'Ошибка сервера' });
   }
 });
 
-router.get('/me', async (req, res) => {
+router.post('/refresh', async (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
-    const token = authHeader?.split(' ')[1];
-    
-    if (!token) {
-      return res.status(401).json({ message: 'Токен не предоставлен' });
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken) {
+      return res.status(401).json({ message: 'Refresh токен не найден' });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.userId).select('-password');
-    
-    if (!user) {
-      return res.status(404).json({ message: 'Пользователь не найден' });
+    const storedToken = await RefreshToken.findOne({ token: refreshToken });
+    if (!storedToken) {
+      return res.status(401).json({ message: 'Неверный refresh токен' });
     }
 
-    res.json({
+    if (storedToken.expiresAt < new Date()) {
+      await RefreshToken.deleteOne({ token: refreshToken });
+      return res.status(401).json({ message: 'Refresh токен истёк' });
+    }
+
+    const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+    
+    const user = await User.findById(decoded.userId);
+    if (!user || user.isBlocked) {
+      await RefreshToken.deleteOne({ token: refreshToken });
+      return res.status(403).json({ message: 'Доступ запрещён' });
+    }
+
+    const { accessToken, refreshToken: newRefreshToken } = generateTokens(user._id);
+    
+    await RefreshToken.deleteOne({ token: refreshToken });
+    await saveRefreshToken(user._id, newRefreshToken);
+
+    res.cookie('refreshToken', newRefreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+    res.json({ accessToken });
+  } catch (error) {
+    console.error('Ошибка обновления токена:', error);
+    res.status(401).json({ message: 'Неверный refresh токен' });
+  }
+});
+
+router.post('/logout', async (req, res) => {
+  try {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (refreshToken) {
+      await RefreshToken.deleteOne({ token: refreshToken });
+    }
+
+    res.clearCookie('refreshToken');
+    
+    res.json({ message: 'Выход выполнен' });
+  } catch (error) {
+    console.error('Ошибка выхода:', error);
+    res.status(500).json({ message: 'Ошибка сервера' });
+  }
+});
+
+router.post('/register', async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+
+    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Пользователь уже существует' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+    
+    const user = await User.create({
+      username,
+      email,
+      password: hashedPassword,
+      role: 'user'
+    });
+
+    const { accessToken, refreshToken } = generateTokens(user._id);
+    await saveRefreshToken(user._id, refreshToken);
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+    res.status(201).json({
+      message: 'Пользователь создан',
       user: {
         id: user._id,
         username: user.username,
-        role: user.role,
         email: user.email,
-        createdAt: user.createdAt
-      }
+        role: user.role
+      },
+      accessToken
     });
-
   } catch (error) {
-    console.error('Ошибка получения профиля:', error);
-    res.status(401).json({ message: 'Неверный или просроченный токен' });
+    console.error('Ошибка регистрации:', error);
+    res.status(500).json({ message: 'Ошибка сервера' });
   }
 });
 

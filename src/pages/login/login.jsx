@@ -84,6 +84,7 @@ export default function Login() {
       // Если логин успешен, перенаправляем на профиль
       navigate('/profile');
     } catch (err) {
+
       // Обработка ошибок авторизации
       const errorMessage = err.response?.data?.message || 'Ошибка входа';
       
@@ -96,6 +97,7 @@ export default function Login() {
           password: 'Проверьте правильность ввода'
         });
       } else {
+        console.log('🔍 Устанавливаем serverError:', errorMessage);
         setServerError(errorMessage);
       }
     } finally {
