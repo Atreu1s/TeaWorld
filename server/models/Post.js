@@ -1,3 +1,4 @@
+// server/models/Post.js
 import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema({
@@ -29,13 +30,19 @@ const postSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-
+  
   authorName: {
     type: String,
     required: true
   },
 
-  likes: {
+  // 🔑 ИСПРАВЛЕНО: ОДНО поле likes как МАССИВ
+  likes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+
+  likesCount: {  // ← ← ← Отдельное поле для счётчика!
     type: Number,
     default: 0
   },

@@ -1,6 +1,8 @@
 @use "../../variables" as *;
 
 .post-area{
+  max-width: 1200px;
+  margin: 0 auto;
   h1 {
     font-size: $h1-font-size;
   }
@@ -49,4 +51,7 @@
 .postTextContent{ // ! важные стили, чтобы сохранить переносы строчек и слов для вывода
   white-space: pre-wrap; 
   word-wrap: break-word; 
+}
+.post-actions {
+  margin: 20px 0;
 }

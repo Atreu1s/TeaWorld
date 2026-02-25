@@ -1,22 +1,37 @@
 @use "../../variables" as *;
 
+.posts-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
 .BlogCard{
+  position: relative;
   padding: 15px;
   box-sizing: border-box;
   border: 3px solid $accent-color;
   border-radius: $elem-border-radius;
   margin: 10px auto;
+  width: 100%;
   max-width: 1200px;
+  height: 350px;
   h2 {
+    margin: 0;
     font-size: $h2-font-size;
+    color: $accent-color;
   }
   p {
     font-size: $p-font-size;
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
   }
   span {
     font-size: $p-font-size;
   }
   .ReadFullPost{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
     color: $accent-color;
     font-size: $h3-font-size;
     transition: $optimal-transition;

@@ -2,7 +2,9 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { blogAPI } from '../../services/blogApi';
+import { authAPI } from '../../services/api';
 import PostSearchFilters from '../../components/postSearch/PostSearch';
+import LikeButton from '../../components/LikeButton/LikeButton';
 import './blog.scss';
 
 const Blog = () => {
@@ -12,9 +14,15 @@ const Blog = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   
-  // 🔍 Состояние для поиска
+  const [currentUser, setCurrentUser] = useState(null);
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [searchField, setSearchField] = useState('all');
+
+  useEffect(() => {
+    const user = authAPI.getUser();
+    setCurrentUser(user);
+  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -69,7 +77,6 @@ const Blog = () => {
     });
   }, [posts, searchQuery, searchField]);
 
-  // Очистка всех фильтров
   const handleClearFilters = () => {
     setSearchQuery('');
     setSearchField('all');
@@ -89,7 +96,6 @@ const Blog = () => {
         <h1>Блог</h1>
       </div>
 
-      {/* 🔍 Компонент поиска */}
       <PostSearchFilters
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -114,21 +120,21 @@ const Blog = () => {
           filteredPosts.map(post => (
             <div key={post._id} className="BlogCard">
               <div className="post-header">
-                <h2 className="post-title">{post.title}</h2>
+                <h2 className="post-title">{post.title.substring(0, 50)}{post.title.length > 50 ? '...' : ''}</h2>
                 <div className="post-meta">
-                  <span className="post-author">Автор: {post.authorName}</span>
+                  <strong><span className="post-author">Автор: {post.authorName} <br /></span>
                   <span className="post-date">
                     {new Date(post.createdAt).toLocaleDateString('ru-RU', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric'
                     })}
-                  </span>
+                  </span></strong>
                 </div>
               </div>
               
               <div className="post-content">
-                <p>{post.content.substring(0, 300)}{post.content.length > 300 ? '...' : ''}</p>
+                <p>{post.content.substring(0, 150)}{post.content.length > 150 ? '...' : ''}</p>
               </div>
               
               {post.tags && post.tags.length > 0 && (
@@ -139,6 +145,15 @@ const Blog = () => {
                 </div>
               )}
               
+              <div className="post-actions">
+                <LikeButton
+                  className="OnPostPage"
+                  postId={post._id}
+                  initialLikesCount={post.likesCount || (Array.isArray(post.likes) ? post.likes.length : 0)}
+                  initialIsLiked={Array.isArray(post.likes) && post.likes.includes(currentUser?.id)}
+                />
+              </div>
+              
               <Link to={`/blog/${post._id}`} className="ReadFullPost">
                 Читать далее
               </Link>
@@ -147,7 +162,6 @@ const Blog = () => {
         )}
       </div>
 
-      {/* Пагинация */}
       {totalPages > 1 && (
         <div className="pagination">
           <button 

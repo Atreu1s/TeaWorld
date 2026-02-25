@@ -3,16 +3,14 @@ import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-//import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
 import authRoutes from './routes/auth.js';
 import blogRoutes from './routes/blog.js'; 
 import adminRoutes from './routes/admin.js';
+import likeRoutes from './routes/likes.js';
 
 
-
-//dotenv.config();
 
 
 const app = express();
@@ -25,7 +23,6 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(cookieParser());
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -39,6 +36,7 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use('/api/auth', authRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/likes', likeRoutes);
 
 
 app.get('/api/health', (req, res) => {

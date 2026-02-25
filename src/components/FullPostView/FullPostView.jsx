@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { blogAPI } from '../../services/blogApi';
+import { authAPI } from '../../services/api';
+import LikeButton from '../LikeButton/LikeButton';
 import './FullPostView.scss';
 
 const FullPostView = () => {
@@ -9,6 +11,12 @@ const FullPostView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+
+   useEffect(() => {
+    const user = authAPI.getUser();
+    setCurrentUser(user);
+  }, []);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -80,7 +88,16 @@ const FullPostView = () => {
         <div>
           <p className='postTextContent'>{post.content}</p>
         </div>
-        
+
+        <div className="post-actions">
+          <LikeButton
+            className="OnPostPage"
+            postId={post._id}
+            initialLikesCount={post.likesCount || (Array.isArray(post.likes) ? post.likes.length : 0)}
+            initialIsLiked={Array.isArray(post.likes) && post.likes.includes(currentUser?.id)}
+          />
+        </div>
+
         <div className="post-detail-actions">
           <button onClick={() => navigate(-1)} className="GoBackBtn">
             Назад
