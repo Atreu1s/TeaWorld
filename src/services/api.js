@@ -2,6 +2,22 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
+let isRefreshing = false;
+
+let failedQueue = [];
+
+
+const processQueue = (error, token = null) => {
+  failedQueue.forEach(prom => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+  failedQueue = [];
+};
+
 const api = axios.create({
   baseURL: API_URL,
   headers: {
@@ -19,11 +35,13 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
 
-    // 🔑 НОВОЕ: НЕ ДЕЛАТЬ REFRESH ДЛЯ ЗАПРОСОВ АВТОРИЗАЦИИ!
+
     if (
       originalRequest.url.includes('/auth/login') || 
       originalRequest.url.includes('/auth/register') ||
@@ -32,11 +50,24 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // Если ошибка 401 и запрос ещё не повторялся
     if (error.response?.status === 401 && !originalRequest._retry) {
+      
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then(token => {
+            originalRequest.headers.Authorization = `Bearer ${token}`;
+            return api(originalRequest);
+          })
+          .catch(err => Promise.reject(err));
+      }
+      
       originalRequest._retry = true;
+      isRefreshing = true;  
 
       try {
+        
         const response = await axios.post(
           `${API_URL}/auth/refresh`,
           {},
@@ -44,15 +75,32 @@ api.interceptors.response.use(
         );
 
         const { accessToken } = response.data;
+        
         localStorage.setItem('accessToken', accessToken);
 
+        processQueue(null, accessToken);
+
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-        return api(originalRequest);
+        
+        const retryResponse = await api(originalRequest);
+        return retryResponse;
+        
       } catch (refreshError) {
+        console.error('ОШИБКА REFRESH:', refreshError.response?.data || refreshError.message);
+        console.error('Статус:', refreshError.response?.status);
+        
+        processQueue(refreshError, null);
+        
+        console.error('Очищаем localStorage и разлогиниваем!');
+        console.error('==================================');
+        
         localStorage.removeItem('accessToken');
         localStorage.removeItem('user');
         window.location.href = '/auth';
         return Promise.reject(refreshError);
+        
+      } finally {
+        isRefreshing = false;  
       }
     }
 

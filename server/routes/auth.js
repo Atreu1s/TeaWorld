@@ -11,7 +11,7 @@ const generateTokens = (userId) => {
   const accessToken = jwt.sign(
     { userId },                    
     process.env.JWT_SECRET,        
-    { expiresIn: '15m' }          
+    { expiresIn: '30m' }          
   );
 
   const refreshToken = jwt.sign(
@@ -47,7 +47,6 @@ router.post('/login', async (req, res) => {
     } 
 
     const isValid = await bcrypt.compare(String(password), String(user.password));
-    console.log('Результат сравнения:', isValid);
     if (!isValid) {
       return res.status(401).json({ message: 'Неверный email или пароль' });
     }
@@ -81,6 +80,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/refresh', async (req, res) => {
+
   try {
     const refreshToken = req.cookies.refreshToken;
 
