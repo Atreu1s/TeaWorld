@@ -55,3 +55,14 @@
 .post-actions {
   margin: 20px 0;
 }
+
+.BlogCard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;  
+}
+
+.post-actions {
+  margin-top: auto;  
+  padding: 16px 0;
+}
