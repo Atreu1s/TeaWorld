@@ -1,39 +1,59 @@
-@use "./variables" as *;
-
 @font-face {
   font-family: 'Almendra';
   src: url('/fonts/AlmendraSC-Regular.ttf') format('truetype');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
   font-family: 'AlumniSans';
   src: url('/fonts/Alumni_Sans/static/AlumniSans-Regular.ttf') format('truetype');
-} 
+  font-display: swap; 
+  font-weight: 400;
+  font-style: normal;
+}
 
+html {
+  -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+}
 
 body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
   background-color: #EEF2EB;
   font-size: 62.5%;
   font-family: 'AlumniSans';
   color: #2A3732;
   max-width: 2000px;
   margin: 0 auto;
-
-   overflow-y: scroll;
-  scrollbar-width: thin;
-  scrollbar-color: $accent-color $background-color-main;
-  &:-webkit-scrollbar{
-    width: 10px;
-  }
-  &:-webkit-scrollbar-track{
-    background: $background-color-main;
-  }
-  &:-webkit-scrollbar-thumb{
-    background-color: $accent-color;
-    border-radius: $elem-border-radius;
-    border: 1px solid $accent-color;
-  }
+  width: 100%;
+  min-width: 320px;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  
 }  
+
+* {
+  box-sizing: border-box;
+}
+
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Фикс для всех контейнеров */
+.container, .wrapper, div {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
 .body-area {
     width: 90%;
     margin: 0 auto 150px auto;
