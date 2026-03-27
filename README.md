@@ -12,14 +12,14 @@
 
 ## Table of Contents
 
-- [About](#-about)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
+- [About](#about)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
 - [Architecture Highlights](#-architecture-highlights)
-- [Getting Started](#-getting-started)
-- [API Endpoints](#-api-endpoints)
-- [Deployment](#-deployment)
-- [License](#-license)
+- [Getting Started](#getting-started)
+- [API Endpoints](#api-endpoints)
+- [Deployment](#deployment)
+- [License](#license)
 
 ---
 
@@ -109,7 +109,7 @@
 ---
 
 
-```markdown
+
 ## Getting Started
 
 ### Prerequisites
